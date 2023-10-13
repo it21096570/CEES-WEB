@@ -12,6 +12,7 @@ const authRoutes = require('./routes/userRoutes');
 const { routsInit } = require('./controllers/auth.google')
 const MongoStore = require('connect-mongo');
 const { config } = require("dotenv");
+
 const path = require('path');
 
 
@@ -65,10 +66,6 @@ mongoose.connect(URI, {
 const db = mongoose.connection;
 
 app.use('/auth', authRoutes);
-
-
-//app.use('/TuteFiles', express.static(__dirname + '/TuteFiles'));
-
 
 
 
