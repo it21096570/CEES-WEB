@@ -41,15 +41,12 @@ function App() {
   };
 
 
-
-
-
   return (
     <>
       <div className="App">
 
         <ToastContainer autoClose={3000} />
-        <NavBar />
+        {user && <NavBar />}
 
 
 
@@ -76,7 +73,6 @@ function App() {
 
               <Routes>
 
-                {/*<Route exact path='/userHome/:token/:role' element={<UserHome />} />*/}
                 <Route path='/userHome' element={<UserHome />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
@@ -103,11 +99,10 @@ function App() {
             <Route path='/register' element={<Register />} />
             <Route path='/fogotPassword' element={<FogotPassword />} />
             <Route path='/changePassword/:email' element={<ChangePass />} />
-            {/*<Route path="/*" element={<Profile />} />*/}
+
           </Routes>
         </Router>
 
-        { /*<Footer />*/}
       </div>
     </>
   );
