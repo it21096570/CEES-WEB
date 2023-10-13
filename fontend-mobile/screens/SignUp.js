@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, SafeAreaView, KeyboardAvoidingView, StyleSheet, Border } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, SafeAreaView, KeyboardAvoidingView, StyleSheet, Border, TouchableHighlight } from 'react-native';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from "@react-navigation/native";
 
 const SignUp = () => {
+
+  const navigation = useNavigation();
+
+
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
+  const handleSignInPress = () => {
+
+    navigation.navigate("Login")
+  }
 
   const handleRegister = async () => {
     try {
@@ -21,11 +32,14 @@ const SignUp = () => {
 
       if (response.status === 201) {
         console.log('Registration successful:', response.data);
+        navigation.navigate("Login");
+
         // Handle success, e.g., navigate to the next screen
       }
     } catch (error) {
       console.error('Registration error:', error);
       // Handle registration error, e.g., show an error message to the user
+      navigation.navigate("SignUp");
     }
   };
 
@@ -103,6 +117,18 @@ const SignUp = () => {
           </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+
+      <TouchableHighlight
+        underlayColor="transparent" // You can customize the underlay color
+        onPress={handleSignInPress}
+      >
+        <Text style={styles.youDontHaveContainer}>
+          <Text style={styles.text}>
+            You don't have an account yet?{' '}
+            <Text style={styles.signUp}>Sign In</Text>
+          </Text>
+        </Text>
+      </TouchableHighlight>
     </SafeAreaView>
   );
 };
@@ -145,6 +171,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   // Add more styles as needed
+
+  youDontHaveContainer: {
+    backgroundColor: 'transparent', // Customize the background color as needed
+    padding: 10, // Add padding if desired
+    borderRadius: 5, // Add border radius if desired
+  },
+  text: {
+    fontSize: 17,
+    color: 'blue', // Customize the text color
+    // Add more text styles as needed
+  },
+  signUp: {
+    fontWeight: 'bold', // Customize font weight if desired
+    textDecorationLine: 'underline', // Add underline styling
+    color: 'green', // Customize the sign-up text color
+    // Add more text styles as needed
+  },
 });
 
 export default SignUp;
