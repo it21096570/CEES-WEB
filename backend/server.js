@@ -9,6 +9,7 @@ const googleAuth = require('./google.auth');
 const passport = require('passport');
 var session = require('express-session');
 const authRoutes = require('./routes/userRoutes');
+const thanujaRoutes = require('./routes/thanujaRoutes');
 const { routsInit } = require('./controllers/auth.google')
 const MongoStore = require('connect-mongo');
 const { config } = require("dotenv");
@@ -65,7 +66,12 @@ mongoose.connect(URI, {
 
 const db = mongoose.connection;
 
+
+
+
 app.use('/auth', authRoutes);
+
+app.use('/thanuja', thanujaRoutes);
 
 
 
