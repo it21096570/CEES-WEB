@@ -1,19 +1,19 @@
 const itemsService = require('../services/items.service');
 
-const createPayment = async (req, res) => {
+const createItems = async (req, res) => {
     try {
         const itemsData = req.body;
-        const savedPayment = await itemsService.createPayment(itemsData);
-        res.status(201).json(savedPayment);
+        const savedItems = await itemsService.createItems(itemsData);
+        res.status(201).json(savedItems);
     } catch (error) {
         console.error('Error creating items:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-const getPayments = async (req, res) => {
+const getItems = async (req, res) => {
     try {
-        const items = await itemsService.getPayments();
+        const items = await itemsService.getItems();
         res.status(200).json(items);
     } catch (error) {
         console.error('Error fetching items:', error);
@@ -21,9 +21,9 @@ const getPayments = async (req, res) => {
     }
 };
 
-const getPaymentById = async (req, res) => {
+const getItemsById = async (req, res) => {
     try {
-        const items = await itemsService.getPaymentById(req.params.id);
+        const items = await itemsService.getItemsById(req.params.id);
         res.status(200).json(items);
     } catch (error) {
         console.error('Error fetching items:', error);
@@ -31,19 +31,19 @@ const getPaymentById = async (req, res) => {
     }
 };
 
-const updatePayment = async (req, res) => {
+const updateItems = async (req, res) => {
     try {
-        const updatedPayment = await itemsService.updatePayment(req.params.id, req.body);
-        res.status(200).json(updatedPayment);
+        const updatedItems = await itemsService.updateItems(req.params.id, req.body);
+        res.status(200).json(updatedItems);
     } catch (error) {
         console.error('Error updating items:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-const deletePayment = async (req, res) => {
+const deleteItems = async (req, res) => {
     try {
-        await itemsService.deletePayment(req.params.id);
+        await itemsService.deleteItems(req.params.id);
         res.status(204).send();
     } catch (error) {
         console.error('Error deleting items:', error);
@@ -52,9 +52,9 @@ const deletePayment = async (req, res) => {
 };
 
 module.exports = {
-    createPayment,
-    getPayments,
-    getPaymentById,
-    updatePayment,
-    deletePayment,
+    createItems,
+    getItems,
+    getItemsById,
+    updateItems,
+    deleteItems,
 };
