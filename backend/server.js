@@ -8,12 +8,13 @@ const app = express();
 const googleAuth = require('./google.auth');
 const passport = require('passport');
 var session = require('express-session');
-const authRoutes = require('./routes/userRoutes');
-const { routsInit } = require('./controllers/auth.google')
+const authRoutes = require('./routes/auth.routes');
+const { routsInit, initGoogleAuthRoutes } = require('./controllers/auth.controller')
 const MongoStore = require('connect-mongo');
 const { config } = require("dotenv");
 
 const path = require('path');
+const database = require("./config/database");
 
 
 //import .env
@@ -37,23 +38,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-//    1.20
 
-mongoose.connect(URI, {
 
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+//using singleton
+database.connect().then(() => {
 
-}).then(() => {
-
-    console.log('Connected to MongoDB!!!');
+    //console.log('Connected to MongoDB!!!');
 
     app.listen(PORT, () => {
+
         console.log(`Server is up and running on port ${PORT}`);
-        routsInit(app, passport)
+        initGoogleAuthRoutes(app, passport)
         googleAuth(passport)
-
-
 
     });
 }).catch((error) => {
@@ -64,6 +60,7 @@ mongoose.connect(URI, {
 
 
 const db = mongoose.connection;
+
 
 app.use('/auth', authRoutes);
 

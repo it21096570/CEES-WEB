@@ -118,6 +118,8 @@ const SignUp = () => {
         </TouchableOpacity>
       </KeyboardAvoidingView>
 
+
+
       <TouchableHighlight
         underlayColor="transparent" // You can customize the underlay color
         onPress={handleSignInPress}
@@ -188,6 +190,7 @@ const styles = StyleSheet.create({
     color: 'green', // Customize the sign-up text color
     // Add more text styles as needed
   },
+
 });
 
 export default SignUp;
