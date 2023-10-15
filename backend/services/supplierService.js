@@ -1,4 +1,3 @@
-// services/supplierService.js
 
 const SupplierFactory = require('../factories/supplierFactory');
 const Supplier = require('../models/supplier');
