@@ -3,7 +3,7 @@ const itemsService = require('../services/items.service');
 const createItems = async (req, res) => {
     try {
         const itemsData = req.body;
-        const savedItems = await itemsService.createItems(itemsData);
+        const savedItems = await itemsService.createitems(itemsData);
         res.status(201).json(savedItems);
     } catch (error) {
         console.error('Error creating items:', error);
@@ -13,7 +13,7 @@ const createItems = async (req, res) => {
 
 const getItems = async (req, res) => {
     try {
-        const items = await itemsService.getItems();
+        const items = await itemsService.getitems();
         res.status(200).json(items);
     } catch (error) {
         console.error('Error fetching items:', error);

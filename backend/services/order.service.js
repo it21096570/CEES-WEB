@@ -52,13 +52,18 @@ const deleteOrder = async (id) => {
     try {
         const order = await Order.findByIdAndRemove(id);
         if (!order) {
-            throw new Error('Order not found');
+            // Handle the case where the order is not found
+            throw new Error('Order not found: The order with the provided ID does not exist.');
         }
+        // Successful deletion
+        return order;
     } catch (error) {
         console.error('Error deleting order:', error);
         throw new Error('Order deletion failed');
     }
 };
+
+
 
 module.exports = {
     createOrder,
