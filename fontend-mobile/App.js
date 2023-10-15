@@ -14,6 +14,8 @@ import UserHomePage from "./screens/UserHomePage";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import GoogleSignInScreen from "./components/GoogleSignInScreen";
+import GoogleSignInWebView from "./components/GoogleSignInWebView";
 
 
 const App = () => {
@@ -87,6 +89,18 @@ const App = () => {
           <Stack.Screen
             name="SignUp"
             component={SignUp}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="GoogleSignInScreen"
+            component={GoogleSignInScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="GoogleSignInWebView"
+            component={GoogleSignInWebView}
             options={{ headerShown: false }}
           />
 
