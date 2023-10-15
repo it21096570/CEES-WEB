@@ -8,13 +8,18 @@ const app = express();
 const googleAuth = require('./google.auth');
 const passport = require('passport');
 var session = require('express-session');
-const authRoutes = require('./routes/auth.routes');
+
 const { routsInit, initGoogleAuthRoutes } = require('./controllers/auth.controller')
 const MongoStore = require('connect-mongo');
 const { config } = require("dotenv");
 
 const path = require('path');
 const database = require("./config/database");
+
+
+const authRoutes = require('./routes/auth.routes');
+const payementRoutes = require('./routes/payment.routes');
+
 
 
 //import .env
@@ -63,6 +68,8 @@ const db = mongoose.connection;
 
 
 app.use('/auth', authRoutes);
+app.use('/payment', payementRoutes);
+
 
 
 

@@ -83,7 +83,7 @@ export default function Login() {
 
     useEffect(() => {
         if (localStorage.getItem('role') === 'admin') {
-            navigate('/adminHome');
+            navigate('/managerHome');
 
         } else if (localStorage.getItem('role') === 'user') {
             navigate('/userHome');
