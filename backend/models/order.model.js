@@ -5,20 +5,16 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
 
-    ordername: {
-        type: String,
-        required: true
-    },
-    ownername: {
+    name: {
         type: String,
         required: true
     },
     total: {
-        type: double,
+        type: Number,
         required: true
     },
-    approvestatus: {
-        type: double,
+    status: {
+        type: String,
         required: true
     },
 
