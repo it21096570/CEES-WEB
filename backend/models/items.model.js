@@ -9,7 +9,7 @@ const ItemSchema = new Schema({
         required: true
     },
     avgunitprice: {
-        type: double,
+        type: Number,
         required: true
     }
 
