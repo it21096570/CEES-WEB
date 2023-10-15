@@ -1,19 +1,19 @@
 const orderItemsService = require('../services/orderItems.service');
 
-const createPayment = async (req, res) => {
+const createOrderItems = async (req, res) => {
     try {
         const orderItemsData = req.body;
-        const savedPayment = await orderItemsService.createPayment(orderItemsData);
-        res.status(201).json(savedPayment);
+        const savedOrderItems = await orderItemsService.createOrderItems(orderItemsData);
+        res.status(201).json(savedOrderItems);
     } catch (error) {
         console.error('Error creating orderItems:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-const getPayments = async (req, res) => {
+const getOrderItems = async (req, res) => {
     try {
-        const orderItems = await orderItemsService.getPayments();
+        const orderItems = await orderItemsService.getOrderItems();
         res.status(200).json(orderItems);
     } catch (error) {
         console.error('Error fetching orderItems:', error);
@@ -21,9 +21,9 @@ const getPayments = async (req, res) => {
     }
 };
 
-const getPaymentById = async (req, res) => {
+const getOrderItemsById = async (req, res) => {
     try {
-        const orderItems = await orderItemsService.getPaymentById(req.params.id);
+        const orderItems = await orderItemsService.getOrderItemsById(req.params.id);
         res.status(200).json(orderItems);
     } catch (error) {
         console.error('Error fetching orderItems:', error);
@@ -31,19 +31,19 @@ const getPaymentById = async (req, res) => {
     }
 };
 
-const updatePayment = async (req, res) => {
+const updateOrderItems = async (req, res) => {
     try {
-        const updatedPayment = await orderItemsService.updatePayment(req.params.id, req.body);
-        res.status(200).json(updatedPayment);
+        const updatedOrderItems = await orderItemsService.updateOrderItems(req.params.id, req.body);
+        res.status(200).json(updatedOrderItems);
     } catch (error) {
         console.error('Error updating orderItems:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-const deletePayment = async (req, res) => {
+const deleteOrderItems = async (req, res) => {
     try {
-        await orderItemsService.deletePayment(req.params.id);
+        await orderItemsService.deleteOrderItems(req.params.id);
         res.status(204).send();
     } catch (error) {
         console.error('Error deleting orderItems:', error);
@@ -52,9 +52,9 @@ const deletePayment = async (req, res) => {
 };
 
 module.exports = {
-    createPayment,
-    getPayments,
-    getPaymentById,
-    updatePayment,
-    deletePayment,
+    createOrderItems,
+    getOrderItems,
+    getOrderItemsById,
+    updateOrderItems,
+    deleteOrderItems,
 };
