@@ -5,18 +5,26 @@ const Schema = mongoose.Schema;
 
 const OrderItemsSchema = new Schema({
 
-    orderid: {
-        type: number,
-        required: true
+    order: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order"
     },
-    itemid: {
-        type: number,
-        required: true
+    item: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Item"
     },
     qty: {
-        type: number,
+        type: Number,
         required: true
     },
+    avgunitprice: {
+        type: Number,
+        required: true
+    },
+    itemtotal: {
+        type: Number,
+        required: true
+    }
    
 
 }, {

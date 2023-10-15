@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
 
-    itemname: {
+    name: {
         type: String,
         required: true
     },
-    unitprice: {
+    avgunitprice: {
         type: double,
         required: true
     }
