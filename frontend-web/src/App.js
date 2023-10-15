@@ -21,6 +21,12 @@ import Footer from './components/Footer';
 import Cookies from 'js-cookie';
 import ViewAllUsers from './components/ViewAllUsers';
 import UpdateUser from './components/UpdateUser';
+import ManagerHome from './components/ManagerHome';
+import OrderManagement from './components/OrderManagement';
+import PaymentDetails from './components/PaymentDetails';
+import InvoicesManagement from './components/InvoicesManagement';
+import OrderDetailsDisplay from './components/OrderDetailsDisplay';
+import InvoicePayment from './components/InvoicePayment';
 
 
 
@@ -60,7 +66,16 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/getUsers' element={<ViewAllUsers />} />
+
                 <Route path='/updateUsers/:userId' element={<UpdateUser />} />
+
+
+                <Route path='/managerHome' element={<ManagerHome />} />
+                <Route path='/orderManagement' element={<OrderManagement />} />
+                <Route path='/paymentDetails' element={<PaymentDetails />} />
+                <Route path='/invoiceManagement' element={<InvoicesManagement />} />
+                <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
+                <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
 
 
               </Routes>
