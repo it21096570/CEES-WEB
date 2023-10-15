@@ -1,4 +1,4 @@
-const items = require('../models/items.model');
+const Items = require('../models/items.model');
 const itemsFactory = require('../factory/items.factory');
 
 const createitems = async (data) => {
@@ -12,9 +12,9 @@ const createitems = async (data) => {
     }
 };
 
-const getitemss = async () => {
+const getitems = async () => {
     try {
-        const items = await items.find();
+        const items = await Items.find();
         return items;
     } catch (error) {
         console.error('Error fetching itemss:', error);
@@ -24,7 +24,7 @@ const getitemss = async () => {
 
 const getitemsById = async (id) => {
     try {
-        const items = await items.findById(id);
+        const items = await Items.findById(id);
         if (!items) {
             throw new Error('items not found');
         }
@@ -35,9 +35,9 @@ const getitemsById = async (id) => {
     }
 };
 
-const updateitems = async (id, data) => {
+const updateItems = async (id, data) => {
     try {
-        const updateditems = await items.findByIdAndUpdate(id, data, { new: true });
+        const updateditems = await Items.findByIdAndUpdate(id, data, { new: true });
         if (!updateditems) {
             throw new Error('items not found');
         }
@@ -48,13 +48,13 @@ const updateitems = async (id, data) => {
     }
 };
 
-const deleteitems = async (id) => {
+const deleteItems = async (id) => {
     try {
-        const items = await items.findById(id);
+        const items = await Items.findByIdAndRemove(id);
         if (!items) {
             throw new Error('items not found');
         }
-        await items.remove();
+        return items;
     } catch (error) {
         console.error('Error deleting items:', error);
         throw new Error('items deletion failed');
@@ -63,8 +63,8 @@ const deleteitems = async (id) => {
 
 module.exports = {
     createitems,
-    getitemss,
+    getitems,
     getitemsById,
-    updateitems,
-    deleteitems,
+    updateItems,
+    deleteItems,
 };
