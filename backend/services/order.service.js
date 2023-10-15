@@ -12,7 +12,7 @@ const createOrder = async (data) => {
     }
 };
 
-const getOrder = async () => {
+const getOrders = async () => {
     try {
         const order = await Order.find();
         return order;
@@ -50,11 +50,10 @@ const updateOrder = async (id, data) => {
 
 const deleteOrder = async (id) => {
     try {
-        const order = await Order.findById(id);
+        const order = await Order.findByIdAndRemove(id);
         if (!order) {
             throw new Error('Order not found');
         }
-        await order.remove();
     } catch (error) {
         console.error('Error deleting order:', error);
         throw new Error('Order deletion failed');
@@ -63,7 +62,7 @@ const deleteOrder = async (id) => {
 
 module.exports = {
     createOrder,
-    getOrder,
+    getOrders,
     getOrderById,
     updateOrder,
     deleteOrder,
