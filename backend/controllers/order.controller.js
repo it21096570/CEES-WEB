@@ -11,9 +11,9 @@ const createOrder = async (req, res) => {
     }
 };
 
-const getOrder = async (req, res) => {
+const getOrders = async (req, res) => {
     try {
-        const order = await orderService.getOrder();
+        const order = await orderService.getOrders();
         res.status(200).json(order);
     } catch (error) {
         console.error('Error fetching order:', error);
@@ -53,7 +53,7 @@ const deleteOrder = async (req, res) => {
 
 module.exports = {
     createOrder,
-    getOrder,
+    getOrders,
     getOrderById,
     updateOrder,
     deleteOrder,

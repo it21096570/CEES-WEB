@@ -20,6 +20,10 @@ const database = require("./config/database");
 const authRoutes = require('./routes/auth.routes');
 const payementRoutes = require('./routes/payment.routes');
 
+const itemsRoutes = require('./routes/items.routes');
+const orderRoutes = require('./routes/order.routes');
+const orderItemRoutes = require('./routes/orderItems.routes');
+
 
 
 //import .env
@@ -70,7 +74,6 @@ const db = mongoose.connection;
 app.use('/auth', authRoutes);
 app.use('/payment', payementRoutes);
 
-
-
-
-
+app.use('/order', orderRoutes);
+app.use('/item', itemsRoutes);
+app.use('/orderItem', orderItemRoutes);
