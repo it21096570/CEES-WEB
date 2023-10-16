@@ -1,33 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 export default function InvoicePayment() {
+    const { invoiceId } = useParams();
+    const orderid = invoiceId;
+    const [amount, setAmount] = useState('');
+    const [cardno, setCardNo] = useState('');
+    const [date, setDate] = useState('');
+    const paymentstatus = 'confirm';
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const [paymentDetails, setPaymentDetails] = useState({
-        amount: '',
-        orderid: '123456', // You can provide a default order ID here
-        cardno: '',
-        date: '',
-    });
+        try {
+            // Validate input data here (e.g., card number and date)
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setPaymentDetails({
-            ...paymentDetails,
-            [name]: value,
-        });
+            // Create an object to send in the POST request
+            const paymentDetails = { orderid, amount, cardno, date, paymentstatus };
+
+            // Send a POST request to your server to save the payment details
+            await axios.post('http://localhost:8080/payment/createPayment', paymentDetails);
+
+            // Optionally, you can reset the form or perform other actions on success
+            setAmount('');
+            setCardNo('');
+            setDate('');
+            alert('Payment submitted successfully!');
+        } catch (error) {
+            if (error.response) {
+                // Handle specific error responses from the server
+                // Display a more detailed error message to the user
+                alert('Error submitting payment: ' + error.response.data.message);
+            } else {
+                alert('Error submitting payment: ' + error.message);
+            }
+        }
     };
-
-
 
     return (
         <div className="h-screen flex flex-wrap justify-center items-center">
             <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 bg-white shadow-lg p-4 rounded-lg">
                 <h1 className="text-2xl font-semibold text-center mb-4">Payment Details</h1>
-                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-4" onSubmit={handleSubmit}>
                     <div className="flex flex-wrap -m-2">
                         <div className="p-2 w-full md:w-1/2">
                             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="orderid">
@@ -39,8 +54,7 @@ export default function InvoicePayment() {
                                 id="orderid"
                                 name="orderid"
                                 placeholder="Enter order ID"
-                                required
-                                value={paymentDetails.orderid}
+                                value={invoiceId}
                                 readOnly
                             />
                         </div>
@@ -55,8 +69,8 @@ export default function InvoicePayment() {
                                 name="amount"
                                 placeholder="Enter amount"
                                 required
-                                onChange={handleInputChange}
-                                value={paymentDetails.amount}
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
                             />
                         </div>
                     </div>
@@ -72,8 +86,8 @@ export default function InvoicePayment() {
                             name="cardno"
                             placeholder="Enter card number"
                             required
-                            onChange={handleInputChange}
-                            value={paymentDetails.cardno}
+                            value={cardno}
+                            onChange={(e) => setCardNo(e.target.value)}
                         />
                     </div>
 
@@ -88,8 +102,8 @@ export default function InvoicePayment() {
                             name="date"
                             placeholder="MM/YY"
                             required
-                            onChange={handleInputChange}
-                            value={paymentDetails.date}
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
                         />
                     </div>
 
