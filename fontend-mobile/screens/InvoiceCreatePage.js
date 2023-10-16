@@ -27,10 +27,11 @@ function InvoiceCreatePage() {
             return;
         }
 
-        // Example API request (you should replace this with your actual API endpoint):
-        axios.post('http://192.168.43.93:8080/invoice/create', {
+        axios.post('http://192.168.43.93:8080/invoice/createInvoice', {
             ordername: order.name, // Use the order name from the fetched order
-            totalnew: parseFloat(totalnew),
+            ordertotal: order.total,
+            orderstatus: order.status,
+            actualprice: totalnew,
         })
             .then(response => {
                 // Handle success, e.g., navigate back to the previous screen

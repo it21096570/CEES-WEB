@@ -53,16 +53,21 @@ const updateinventory = async (id, data) => {
 
 const deleteinventory = async (id) => {
     try {
-        const inventory = await inventory.findById(id);
-        if (!inventory) {
-            throw new Error('inventory not found');
+        const deletedInventory = await Inventory.findByIdAndRemove(id);
+        if (!deletedInventory) {
+            // Handle the case where the order is not found
+            throw new Error('Order not found: The order with the provided ID does not exist.');
         }
-        await inventory.remove();
+        // Successful deletion
+        return deletedInventory;
     } catch (error) {
-        console.error('Error deleting inventory:', error);
-        throw new Error('inventory deletion failed');
+        console.error('Error deleting order:', error);
+        throw new Error('Order deletion failed');
     }
 };
+
+
+
 
 module.exports = {
     createinventory,

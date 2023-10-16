@@ -10,6 +10,10 @@ const InventorySchema = new Schema({
     quantity: {
         type: Number, // Change 'number' to 'Number'
         required: true
+    },
+    avgunitprice: {
+        type: Number,
+        required: true
     }
 }, {
     timestamps: true
