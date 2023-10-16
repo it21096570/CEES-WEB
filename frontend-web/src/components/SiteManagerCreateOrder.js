@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function SiteManagerCreateOrder() {
-    const BASE_PATH = process.env.BASE_PATH;
 
     const [orderName, setOrderName] = useState(''); // State for order name
     const [orderDetails, setOrderDetails] = useState([
