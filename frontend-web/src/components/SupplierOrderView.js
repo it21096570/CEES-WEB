@@ -32,22 +32,7 @@ export default function SupplierOrderView() {
         navigate(`/InvoiceForm/${orderId}`); // Use navigate to redirect
       };
 
-    const managerApproval = (id) => {
-        const newStatus = "Approved"; // Change this to the desired status
 
-        axios.put(`http://localhost:8080/order/updateOrder/${id}`, { status: newStatus })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`Order ${orderId} has been ${newStatus}`);
-                    // Optionally, you can update the order status in your frontend data
-                    setOrderDetails({ ...orderDetails, status: newStatus });
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating order status: ', error);
-                alert('Error updating order status: ' + error.message);
-            });
-    };
 
     const managerReject = (id) => {
         const newStatus = "Rejected"; // Change this to the desired status
@@ -130,15 +115,7 @@ export default function SupplierOrderView() {
                         className="mr-4 py-2 px-4 border rounded-lg"
                     />
                     <div className="flex items-center space-x-4">
-                        <button
-                            className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                            onClick={() => managerApproval(orderDetails._id)}
-                        >
-                            <span className="mr-2">Approve</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                        </button>
+                      
                         <button
                             className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                             onClick={() => managerReject(orderDetails._id)}
