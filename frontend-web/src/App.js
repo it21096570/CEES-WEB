@@ -32,14 +32,19 @@ import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
 
 
-import SupplierView from './components/SupplierView';
-
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
 
 //Sandeepa
 import CreateInventry from './components/CreateInventory';
+
+//kamishka
+import SupplierView from './components/SupplierView';
+import SupplierOrderView from './components/SupplierOrderView';
+import InvoiceForm from './components/InvoiceForm';
+
+
 
 function App() {
 
@@ -80,6 +85,7 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
 
 
+
                 <Route path='/updateUsers/:userId' element={<UpdateUser />} />
 
 
@@ -103,7 +109,6 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
-                <Route path='/SiteManagerCreateOrder' element={<CreateInventry />} />
 
 
                 <Route path='/managerHome' element={<ManagerHome />} />
@@ -112,6 +117,9 @@ function App() {
                 <Route path='/invoiceManagement' element={<InvoicesManagement />} />
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
+                <Route path='/supplierOrderView/:orderId' element={<SupplierOrderView />} />
+                <Route path='/invoiceForm/:orderId' element={<InvoiceForm />} />
+
 
 
               </Routes>
