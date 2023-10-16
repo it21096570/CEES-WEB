@@ -50,11 +50,11 @@ const updatePayment = async (id, data) => {
 
 const deletePayment = async (id) => {
     try {
-        const payment = await Payment.findById(id);
-        if (!payment) {
+        const deletedPayment = await Payment.findByIdAndRemove(id);
+
+        if (!deletedPayment) {
             throw new Error('Payment not found');
         }
-        await payment.remove();
     } catch (error) {
         console.error('Error deleting payment:', error);
         throw new Error('Payment deletion failed');

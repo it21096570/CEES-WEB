@@ -44,13 +44,12 @@ const updatePayment = async (req, res) => {
 const deletePayment = async (req, res) => {
     try {
         await paymentService.deletePayment(req.params.id);
-        res.status(204).send();
+        res.status(204).send(); // Status 204 indicates that the request was successful with no content to return.
     } catch (error) {
         console.error('Error deleting payment:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
-
 module.exports = {
     createPayment,
     getPayments,
