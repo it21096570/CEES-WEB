@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import axios from 'axios';
-import { useNavigation } from "@react-navigation/native";
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 function InvoiceCreatePage() {
-
     const route = useRoute();
     const { orderId } = route.params;
     const navigation = useNavigation();
     const [order, setOrder] = useState({});
-    const [newCost, setNewCost] = useState('');
-    const [ordername, setOrderName] = useState('');
     const [totalnew, setTotalNew] = useState('');
 
     useEffect(() => {
@@ -19,7 +15,6 @@ function InvoiceCreatePage() {
         axios.get(`http://192.168.43.93:8080/order/getOneOrder/${orderId}`)
             .then(response => {
                 setOrder(response.data);
-                setOrderName(response.data.name)
             })
             .catch(err => {
                 console.error(err);
@@ -27,11 +22,14 @@ function InvoiceCreatePage() {
     }, [orderId]);
 
     const createInvoice = () => {
+        if (!totalnew) {
+            // Handle validation or display an error message if the field is empty
+            return;
+        }
 
-
-        //Example API request (you should replace this with your actual API endpoint):
+        // Example API request (you should replace this with your actual API endpoint):
         axios.post('http://192.168.43.93:8080/invoice/create', {
-            ordername,
+            ordername: order.name, // Use the order name from the fetched order
             totalnew: parseFloat(totalnew),
         })
             .then(response => {
@@ -42,8 +40,6 @@ function InvoiceCreatePage() {
                 // Handle error, e.g., show an error message to the user
                 console.error(err);
             });
-
-
     };
 
     return (
@@ -56,7 +52,7 @@ function InvoiceCreatePage() {
             <Text style={styles.label}>New Cost:</Text>
             <TextInput
                 style={styles.input}
-                value={newCost}
+                value={totalnew.toString()} // Ensure that the value is a string
                 onChangeText={(text) => setTotalNew(text)}
             />
             <Button
