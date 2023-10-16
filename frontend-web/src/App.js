@@ -35,9 +35,12 @@ import InvoicePayment from './components/InvoicePayment';
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
+import CreateInventory from './components/CreateInventory';
+import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
+import UpdateInventory from './components/UpdateInventory';
 
-//Sandeepa
-import CreateInventry from './components/CreateInventory';
+
+
 
 //kamishka
 import SupplierView from './components/SupplierView';
@@ -91,6 +94,9 @@ function App() {
 
 
 
+                
+
+                
 
 
               </Routes>
@@ -109,6 +115,10 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
+
+                <Route path='/CreateInventory' element={<CreateInventory />} />
+                <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
+                <Route path='/UpdateInventory' element={<UpdateInventory />} />
 
 
                 <Route path='/managerHome' element={<ManagerHome />} />
