@@ -6,6 +6,9 @@ import { useFonts } from "expo-font";
 import SignUp from "./screens/SignUp";
 import Login from "./screens/Login";
 
+import DashBoard from "./screens/DashBoard";
+import SuppliyerHome from "./screens/SuppliyerHome";
+
 
 
 import UserHomePage from "./screens/UserHomePage";
@@ -103,6 +106,20 @@ const App = () => {
             component={GoogleSignInWebView}
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="SuppliyerHome"
+            component={SuppliyerHome}
+            options={{ headerShown: false }}
+          />
+
+
+          <Stack.Screen
+            name="DashBoard"
+            component={DashBoard}
+            options={{ headerShown: false }}
+          />
+
 
           <Stack.Screen
             name="UserHomePage"
