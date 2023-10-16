@@ -22,6 +22,9 @@ export default function UserHome() {
   const handleManagerHome = () => {
     navigate('/managerHome')
   }
+  const supplierView = () => {
+    navigate('/supplierView')
+  }
 
   return (
 
@@ -51,6 +54,8 @@ export default function UserHome() {
         >
           Manager Home
         </button>
+        <button className="bg-violet-800 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-md"
+          onClick={supplierView}>Supplier</button>
 
       </div>
     </div>
