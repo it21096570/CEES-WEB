@@ -63,7 +63,7 @@ const deleteOrderItems = async (id) => {
 
 const getOrderItemsByOrderID = async (orderId) => {
     try {
-        const orderItems = await OrderItem.find({ orderId });
+        const orderItems = await OrderItems.find({ orderId });
         return orderItems;
     } catch (error) {
         console.error('Error fetching order items:', error);
