@@ -19,6 +19,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import GoogleSignInScreen from "./components/GoogleSignInScreen";
 import GoogleSignInWebView from "./components/GoogleSignInWebView";
+import InvoiceCreatePage from "./screens/InvoiceCreatePage";
 
 
 const App = () => {
@@ -117,6 +118,13 @@ const App = () => {
           <Stack.Screen
             name="DashBoard"
             component={DashBoard}
+            options={{ headerShown: false }}
+          />
+
+
+          <Stack.Screen
+            name="InvoiceCreatePage"
+            component={InvoiceCreatePage}
             options={{ headerShown: false }}
           />
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from "@react-navigation/native";
 
 function SuppliyerHome() {
+    const navigation = useNavigation();
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(null);
 
@@ -16,6 +18,11 @@ function SuppliyerHome() {
                 setError(err);
             });
     }, []);
+
+    const navigateToInvoiceCreate = (orderId) => {
+        // Use navigation.navigate to go to the "Invoice Create" screen and pass the order ID as a parameter
+        navigation.navigate('InvoiceCreatePage', { orderId });
+    };
 
     if (error) {
         return (
@@ -40,10 +47,8 @@ function SuppliyerHome() {
                             <Text style={styles.cell}>{item.status}</Text>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={() => {
-                                    // Handle navigation to the confirmation screen
-                                    // You should implement this navigation logic.
-                                }}
+                                onPress={navigateToInvoiceCreate(item._id)}
+
                             >
                                 <Text style={styles.buttonText}>Confirm Invoice</Text>
                             </TouchableOpacity>
