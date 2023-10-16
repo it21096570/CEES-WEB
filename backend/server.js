@@ -71,11 +71,18 @@ database.connect().then(() => {
 
 const db = mongoose.connection;
 
-
+//sadeepa
 app.use('/auth', authRoutes);
 app.use('/payment', payementRoutes);
 
+//thanuja
 app.use('/order', orderRoutes);
 app.use('/item', itemsRoutes);
 app.use('/orderItem', orderItemRoutes);
+
+//thathsarani
 app.use('/inventory', inventoryRoutes);
+
+
+//kamishka
+//app.use('/inventory', inventoryRoutes);

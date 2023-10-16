@@ -19,7 +19,6 @@ export default function OrderDetailsDisplay() {
                 const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
                 setOrderItemDetails(itemResponse.data);
 
-
                 alert(orderItemDetails.length)
                 console.log(orderItemDetails);
 
