@@ -118,7 +118,7 @@ function App() {
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
                 <Route path='/supplierOrderView/:orderId' element={<SupplierOrderView />} />
-                <Route path='/invoiceForm/:orderId' element={<InvoiceForm />} />
+                <Route path='/InvoiceForm/:orderId' element={<InvoiceForm />} />
 
 
 

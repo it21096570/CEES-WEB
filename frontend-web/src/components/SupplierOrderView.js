@@ -1,37 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams,useNavigate  } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-
-
 
 export default function SupplierOrderView() {
     const { orderId } = useParams();
     const [search, setSearch] = useState('');
     const [orderDetails, setOrderDetails] = useState({});
     const [orderItemDetails, setOrderItemDetails] = useState([]);
+    const navigate = useNavigate(); // Use useNavigate to navigate
+
 
     useEffect(() => {
         async function fetchData() {
-            try {
-                const orderResponse = await axios.get(`http://localhost:8080/order/getOneOrder/${orderId}`);
-                setOrderDetails(orderResponse.data);
-
-                const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
-                setOrderItemDetails(itemResponse.data);
-
-                alert(orderItemDetails.length)
-                console.log(orderItemDetails);
-
-            } catch (error) {
-                console.error("Error fetching data: " + error);
-            }
+          try {
+            const orderResponse = await axios.get(`http://localhost:8080/order/getOneOrder/${orderId}`);
+            setOrderDetails(orderResponse.data);
+    
+            const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
+            setOrderItemDetails(itemResponse.data);
+          } catch (error) {
+            console.error("Error fetching data: " + error);
+          }
         }
-
+    
         fetchData();
-    }, [orderId]);
+      }, [orderId]);
+    
+      const redirectToInvoiceForm = () => {
+        navigate(`/InvoiceForm/${orderId}`); // Use navigate to redirect
+      };
 
     const managerApproval = (id) => {
         const newStatus = "Approved"; // Change this to the desired status
@@ -49,26 +48,6 @@ export default function SupplierOrderView() {
                 alert('Error updating order status: ' + error.message);
             });
     };
-
-    
-    <Link to={`/invoice-form/${orderId}`}>
-        <button>Go to Invoice Form</button>
-    </Link>
-
-      const updateInvoiceData = (newTotal) => {
-        // Make a PUT request to update the invoice data
-        axios
-          .put(`http://localhost:8080/invoice/updateInvoice/${orderId}`, { newTotal })
-          .then((response) => {
-            // Handle success
-            alert('Invoice data updated successfully');
-          })
-          .catch((error) => {
-            // Handle error
-            console.error('Error updating invoice data:', error);
-            alert('Error updating invoice data');
-          });
-      };
 
     const managerReject = (id) => {
         const newStatus = "Rejected"; // Change this to the desired status
@@ -134,7 +113,7 @@ export default function SupplierOrderView() {
     return (
         <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto">
             <div className="w-52 md:w-2/3 lg:w-1/3 shadow-lg bg-white mx-auto p-2 float-left mt-5">
-                <h1 className="text-lg font-semibold">Order Details confirm</h1>
+                <h1 className="text-lg font-semibold">Order Details</h1>
                 <p className="text-sm">
                     Order Name: {orderDetails.name}<br />
                     Total Cost: ${orderDetails.total}<br />
@@ -151,15 +130,15 @@ export default function SupplierOrderView() {
                         className="mr-4 py-2 px-4 border rounded-lg"
                     />
                     <div className="flex items-center space-x-4">
-
-                        <Link to={`/invoice-form/${orderId}`}> {/* Use Link to navigate to the invoice form */}
-                                <button>
-                                    Go to Invoice Form
-                                </button>
-                        </Link>
-                        
-
-                        
+                        <button
+                            className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+                            onClick={() => managerApproval(orderDetails._id)}
+                        >
+                            <span className="mr-2">Approve</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </button>
                         <button
                             className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                             onClick={() => managerReject(orderDetails._id)}
@@ -179,8 +158,17 @@ export default function SupplierOrderView() {
                             </svg>
                         </button>
 
-                        
+                        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto">
+      {/* ... Your existing code */}
+      <button
+        className="flex items-center bg-purple-500 text-white px-4 py-2 rounded-md hover-bg-purple-600"
+        onClick={redirectToInvoiceForm}
+      >
+        <span className="mr-2">Invoice</span>
+      </button>
+    </div>
 
+                        
                     </div>
                 </div>
             </div>
@@ -207,8 +195,8 @@ export default function SupplierOrderView() {
             <p className="mt-4 text-lg font-semibold float-right">
                 Total Cost: {orderDetails.total}
             </p>
-
-
         </div>
+
+        
     );
 }
