@@ -1,39 +1,81 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function OrderManagement() {
-
     const [search, setSearch] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('All');
     const [orderDetails, setOrderDetails] = useState([]);
 
-
-    useEffect(function () {
-
+    useEffect(() => {
         function getOrderDetails() {
-            axios.get("http://localhost:8080/order/getAllOrders").then(function (res) {
-
-                setOrderDetails(res.data);
-                //alert(res.data.name)
-                //console.log(res.data)
-
-            }).catch(function (err) {
-                alert("data not fech" + err);
-            })
+            axios.get("http://localhost:8080/order/getAllOrders")
+                .then(function (res) {
+                    setOrderDetails(res.data);
+                })
+                .catch(function (err) {
+                    console.error("Data not fetched", err);
+                });
         }
         getOrderDetails();
-    }, [])
+    }, []);
 
+    const deleteOrder = (id) => {
+        axios.delete(`http://localhost:8080/order/deleteOrder/${id}`)
+            .then(() => {
 
-
-    // Initialize with 'All'
+                alert("Delete Success")
+                window.location.reload('/orderManagement')
+            })
+            .catch((error) => {
+                console.error('Error deleting order: ', error);
+                alert('Error deleting order: ' + error.message);
+            });
+    };
 
     const filteredData = orderDetails.filter((item) => (
         (selectedStatus === 'All' || (item.status && item.status.toLowerCase() === selectedStatus)) &&
         (item.name && item.name.toLowerCase().includes(search.toLowerCase()))
     ));
+
+
+
+    function generatePdf() {
+        const unit = "pt";
+        const size = "A3";
+        const orientation = "portrait";
+
+        const marginLeft = 400;
+        const margin = 20
+        const doc = new jsPDF(orientation, unit, size);
+
+        const title = "All Orders Table Details";
+        const headers = ["Order Id", "Order Name", "Total Cost", "Status"];
+        const data = filteredData.map((rep) => [
+            rep._id,
+            rep.name,
+            rep.total,
+            rep.status,
+        ]);
+
+        let content = {
+            startY: 70,
+            head: [headers],
+            body: data,
+        };
+
+        doc.setFontSize(18);
+        doc.text(title, marginLeft, 40);
+
+        // Add Order Name, Status, and Total Price to the header
+        doc.setFontSize(12);
+
+        doc.autoTable(content);
+        doc.save("AllOrderDetails.pdf");
+    }
+
 
 
     return (
@@ -51,7 +93,8 @@ export default function OrderManagement() {
                             className="w-96 py-2 pl-8 pr-3 border rounded-lg"
                         />
                         <div className="absolute top-0 left-2 mt-2 text-gray-500">
-                            <i className="fas fa-search"></i> {/* Add your search icon here */}
+                            {/* Add your search icon here */}
+                            <i className="fas fa-search"></i>
                         </div>
                     </div>
                     <div className="relative w-1/4">
@@ -68,7 +111,7 @@ export default function OrderManagement() {
                         </select>
                     </div>
                     <div className="relative w-1/4 p-5">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={generatePdf}>
                             Print Details
                         </button>
                     </div>
@@ -81,13 +124,12 @@ export default function OrderManagement() {
                         <th className="py-2 px-4 font-semibold">Total Cost</th>
                         <th className="py-2 px-4 font-semibold">Status</th>
                         <th className="py-2 px-4 font-semibold">View Details</th>
-                        <th className="py-2 px-4 font-semibold">Print Invoice</th>
                         <th className="py-2 px-4 font-semibold">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
-                        <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
+                        <tr key={item._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
                             <td className="py-2 px-4">{item.name}</td>
                             <td className="py-2 px-4">{item.total}</td>
                             <td className="py-2 px-4">{item.status}</td>
@@ -97,14 +139,9 @@ export default function OrderManagement() {
                                 </Link>
                             </td>
                             <td className="py-2 px-4">
-                                <Link to={`/invoicePayment/${item._id}`}>
-                                    <button className="text-blue-500 hover:underline">Print</button>
-                                </Link>
-                            </td>
-                            <td className="py-2 px-4">
-                                <Link to={`/orderDetailsDisplay/${item._id}`}>
-                                    <button className="text-blue-500 hover:underline">Delete</button>
-                                </Link>
+                                <button className="text-blue-500 hover:underline" onClick={() => deleteOrder(item._id)}>
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}
