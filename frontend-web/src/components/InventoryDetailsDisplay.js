@@ -4,9 +4,18 @@ import axios from 'axios';
 
 export default function InventoryDetailsDisplay() {
   const navigate = useNavigate();
+ 
   const [inventory, setInventory] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredInventory, setFilteredInventory] = useState([]);
+
+  const updateInventory = (inventoryId) => {
+    navigate(`/UpdateInventory/${inventoryId}`);
+  };
+
+  const deleteInventory = (inventoryId) => {
+    // Implement the logic to delete the inventory item with the given ID
+  };
 
   useEffect(() => {
     axios
@@ -106,18 +115,12 @@ export default function InventoryDetailsDisplay() {
                   {/* You can add action buttons here, e.g., edit, delete, etc. */}
                   <button
                     className="text-themeBlue hover:text-themePurple"
-                    onClick={() => {
-                      // Implement edit functionality
-                    }}
-                  >
+                    onClick={() => updateInventory(item._id)}>
                     Edit
                   </button>
                   <button
                     className="text-themeBlue hover:text-themePurple ml-2"
-                    onClick={() => {
-                      // Implement delete functionality
-                    }}
-                  >
+                    onClick={() => deleteInventory(item._id)}>
                     Delete
                   </button>
                 </td>

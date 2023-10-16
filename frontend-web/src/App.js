@@ -32,7 +32,8 @@ import SupplierView from './components/SupplierView';
 
 
 import CreateInventory from './components/CreateInventory';
-import InventoryDetailsDisplay from './components/InventoryDetailsDisplay'
+import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
+import UpdateInventory from './components/UpdateInventory';
 
 
 
@@ -108,6 +109,7 @@ function App() {
 
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
+                <Route path='/UpdateInventory' element={<UpdateInventory />} />
 
 
 
