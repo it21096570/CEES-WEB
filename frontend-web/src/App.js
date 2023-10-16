@@ -34,7 +34,8 @@ import SupplierView from './components/SupplierView';
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
 
-
+//Sandeepa
+import CreateInventry from './components/CreateInventry';
 
 function App() {
 
@@ -102,6 +103,8 @@ function App() {
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
+
+                <Route path='/SiteManagerCreateOrder' element={<CreateInventry />} />
 
 
 
