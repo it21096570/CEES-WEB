@@ -23,7 +23,8 @@ const Login = () => {
   const handleSignUpPress = () => {
 
 
-    navigation.navigate("SignUp")
+    //navigation.navigate("SignUp")
+    navigation.navigate("DashBoard")
   }
 
   const handleLogin = async () => {
@@ -37,7 +38,9 @@ const Login = () => {
         console.log('Login successful:', response.data);
 
         // Handle success, e.g., navigate to the next screen
-        navigation.navigate("UserHomePage");
+        navigation.navigate("DashBoard");
+
+
       }
     } catch (error) {
       console.error('Login error:', error);
