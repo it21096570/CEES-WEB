@@ -30,7 +30,8 @@ import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
 import SupplierView from './components/SupplierView';
 
-
+//Thanuja
+import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
 
 
@@ -100,6 +101,7 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
+                <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
 
 
