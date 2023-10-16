@@ -34,22 +34,7 @@ export default function SupplierOrderView() {
 
 
 
-    const managerReject = (id) => {
-        const newStatus = "Rejected"; // Change this to the desired status
 
-        axios.put(`http://localhost:8080/order/updateOrder/${id}`, { status: newStatus })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`Order ${orderId} has been ${newStatus}`);
-                    // Optionally, you can update the order status in your frontend data
-                    setOrderDetails({ ...orderDetails, status: newStatus });
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating order status: ', error);
-                alert('Error updating order status: ' + error.message);
-            });
-    };
 
     // Filter order items based on the search input
     let filteredItems = [];
@@ -116,15 +101,7 @@ export default function SupplierOrderView() {
                     />
                     <div className="flex items-center space-x-4">
                       
-                        <button
-                            className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                            onClick={() => managerReject(orderDetails._id)}
-                        >
-                            <span className="mr-2">Reject</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+
                         <button
                             className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                             onClick={generatePdf}
