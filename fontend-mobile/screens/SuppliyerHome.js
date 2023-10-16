@@ -47,8 +47,7 @@ function SuppliyerHome() {
                             <Text style={styles.cell}>{item.status}</Text>
                             <TouchableOpacity
                                 style={styles.button}
-                                onPress={navigateToInvoiceCreate(item._id)}
-
+                                onPress={() => navigateToInvoiceCreate(item._id)}
                             >
                                 <Text style={styles.buttonText}>Confirm Invoice</Text>
                             </TouchableOpacity>
