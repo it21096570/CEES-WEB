@@ -35,7 +35,7 @@ const getOrderItemsById = async (id) => {
     }
 };
 
-const updateOrderItems = async (id, data) => {
+/* const updateOrderItems = async (id, data) => {
     try {
         const updatedOrderItems = await OrderItems.findByIdAndUpdate(id, data, { new: true });
         if (!updatedOrderItems) {
@@ -46,7 +46,26 @@ const updateOrderItems = async (id, data) => {
         console.error('Error updating orderItems:', error);
         throw new Error('OrderItems update failed');
     }
+}; */
+
+const updateOrderItems = async (order, item, data) => {
+    try {
+        const filter = { order, item };
+        const updatedOrderItems = await OrderItems.findOneAndUpdate(filter, data, { new: true });
+
+        if (!updatedOrderItems) {
+            throw new Error('OrderItems not found');
+        }
+
+        return updatedOrderItems;
+    } catch (error) {
+        console.error('Error updating orderItems:', error);
+        throw new Error('OrderItems update failed');
+    }
 };
+
+
+
 
 const deleteOrderItems = async (id) => {
     try {

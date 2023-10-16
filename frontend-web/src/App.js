@@ -34,6 +34,8 @@ import InvoicePayment from './components/InvoicePayment';
 
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
+import SiteManagerViewOrder from './components/SiteManagerViewOrder';
+import SiteManagerViewOrderDetails from './components/SiteManagerViewOrderDetail';
 
 import CreateInventory from './components/CreateInventory';
 import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
@@ -42,10 +44,13 @@ import UpdateInventory from './components/UpdateInventory';
 
 
 
+
+
 //kamishka
 import SupplierView from './components/SupplierView';
 import SupplierOrderView from './components/SupplierOrderView';
 import InvoiceForm from './components/InvoiceForm';
+
 
 
 
@@ -114,12 +119,15 @@ function App() {
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
+                <Route path='/SiteManagerViewOrder' element={<SiteManagerViewOrder />} />
+                <Route path='/SiteManagerViewOrderDetails/:orderId' element={<SiteManagerViewOrderDetails />} />
+
 
 
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
-                <Route path='/UpdateInventory' element={<UpdateInventory />} />
-
+                <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
+                
 
                 <Route path='/managerHome' element={<ManagerHome />} />
                 <Route path='/orderManagement' element={<OrderManagement />} />
@@ -128,7 +136,7 @@ function App() {
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
                 <Route path='/supplierOrderView/:orderId' element={<SupplierOrderView />} />
-                <Route path='/invoiceForm/:orderId' element={<InvoiceForm />} />
+                <Route path='/InvoiceForm/:orderId' element={<InvoiceForm />} />
 
 
 
