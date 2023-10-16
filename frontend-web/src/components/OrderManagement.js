@@ -13,21 +13,17 @@ export default function OrderManagement() {
     useEffect(function () {
 
         function getOrderDetails() {
-            axios.get("http://localhost:8080/payment/getAllPayments").then(function (res) {
+            axios.get("http://localhost:8080/order/getAllOrders").then(function (res) {
 
                 setOrderDetails(res.data);
-                alert(res.data.name)
-                console.log(res.data)
+                //alert(res.data.name)
+                //console.log(res.data)
 
             }).catch(function (err) {
                 alert("data not fech" + err);
             })
         }
         getOrderDetails();
-
-
-
-
     }, [])
 
 
@@ -96,17 +92,17 @@ export default function OrderManagement() {
                             <td className="py-2 px-4">{item.total}</td>
                             <td className="py-2 px-4">{item.status}</td>
                             <td className="py-2 px-4">
-                                <Link to={`/orderDetailsDisplay/${item.id}`}>
+                                <Link to={`/orderDetailsDisplay/${item._id}`}>
                                     <button className="text-blue-500 hover:underline">Details</button>
                                 </Link>
                             </td>
                             <td className="py-2 px-4">
-                                <Link to={`/invoicePayment/${item.id}`}>
+                                <Link to={`/invoicePayment/${item._id}`}>
                                     <button className="text-blue-500 hover:underline">Print</button>
                                 </Link>
                             </td>
                             <td className="py-2 px-4">
-                                <Link to={`/orderDetailsDisplay/${item.id}`}>
+                                <Link to={`/orderDetailsDisplay/${item._id}`}>
                                     <button className="text-blue-500 hover:underline">Delete</button>
                                 </Link>
                             </td>

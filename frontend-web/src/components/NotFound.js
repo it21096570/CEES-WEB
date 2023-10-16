@@ -10,9 +10,6 @@ export default function NotFound() {
     const navigate = useNavigate();
 
 
-
-
-
     return (
 
         <div style={{ height: "90vh" }}>
