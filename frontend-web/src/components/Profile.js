@@ -5,10 +5,7 @@ import { useState, useEffect } from 'react';
 import jwt from 'jwt-decode'
 import { Link } from "react-router-dom";
 
-
 export default function Profile() {
-
-
 
     const [firstname, setFirstName] = useState('')
     const [lastname, setLastName] = useState('')
@@ -18,7 +15,6 @@ export default function Profile() {
     const [password, setPassword] = useState('')
     const [role, setRole] = useState('')
 
-
     useEffect(() => {
 
         const fetchProfileDetails = async () => {
@@ -27,8 +23,6 @@ export default function Profile() {
             const userId = decoded.userId;
 
             try {
-
-
                 const response = await axios.post("http://localhost:8080/auth/profile", { userId });
 
 
@@ -51,9 +45,6 @@ export default function Profile() {
 
     }, [])
 
-
-
-
     const deleteProfileDetails = async () => {
 
         const token = localStorage.getItem('token')
@@ -69,16 +60,12 @@ export default function Profile() {
             localStorage.clear();
             window.location.href = '/login';
 
-
-
             //window.location.reload(true);
         } catch (error) {
             alert('Delete unsuccessful' + error);
             console.log(error);
         }
     };
-
-
 
     const updateProfileDetails = async (e) => {
         e.preventDefault();
@@ -88,11 +75,7 @@ export default function Profile() {
 
         try {
 
-
             const response = await axios.put("http://localhost:8080/auth/updateUser", { userId, firstname, lastname, age, dob });
-
-
-
 
             //window.location.reload(true);
         } catch (error) {
@@ -163,7 +146,6 @@ export default function Profile() {
 
                     <br></br>
 
-
                     <div className="row">
 
                         <div className="col-lg-6 col-md-12 col-sm-12">
@@ -174,30 +156,13 @@ export default function Profile() {
                             <button className="btn float-left text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 w-50 " onClick={deleteProfileDetails}>Delete</button>
                         </div>
 
-
                     </div>
-
-
-
-
-
-
-
-
-
 
                 </div>
 
             </div>
 
         </div>
-
-
-
-
-
-
-
 
     )
 }
