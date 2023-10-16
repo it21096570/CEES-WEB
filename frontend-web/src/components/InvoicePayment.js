@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function InvoicePayment() {
     const { invoiceId } = useParams();
+    const navigate = useNavigate();
     const orderid = invoiceId;
     const [amount, setAmount] = useState('');
     const [cardno, setCardNo] = useState('');
@@ -27,6 +28,7 @@ export default function InvoicePayment() {
             setCardNo('');
             setDate('');
             alert('Payment submitted successfully!');
+
         } catch (error) {
             if (error.response) {
                 // Handle specific error responses from the server
