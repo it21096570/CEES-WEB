@@ -29,6 +29,7 @@ import InvoicesManagement from './components/InvoicesManagement';
 import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
 import SupplierView from './components/SupplierView';
+import InvoiceForm from './components/InvoiceForm';
 
 
 
@@ -100,6 +101,7 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
+                <Route path='/invoiceForm' element={<InvoiceForm />} />
 
 
 
