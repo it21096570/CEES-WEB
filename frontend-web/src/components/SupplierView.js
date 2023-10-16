@@ -19,9 +19,12 @@ function SupplierView() {
   if (error) {
     return <div>Error: {error.message}</div>;
   } else {
+    // Filter orders with status "approved"
+    const approvedOrders = orders.filter(order => order.status === "Pending");
+
     return (
       <div className="supplier-view">
-        <h1>Supplier View</h1>
+        <h1>Supplier View - Approved Orders</h1>
         <table>
           <thead>
             <tr>
@@ -31,7 +34,7 @@ function SupplierView() {
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
+            {approvedOrders.map(order => (
               <tr key={order._id}>
                 <td>{order.name}</td>
                 <td>${order.total}</td>
