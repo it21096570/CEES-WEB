@@ -72,7 +72,7 @@ export default function NavBarUser() {
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link" href="/suppliers">
+                                <a className="nav-link" href="/supplierView">
                                     <FontAwesomeIcon /> Suppliers
                                 </a>
                             </li>

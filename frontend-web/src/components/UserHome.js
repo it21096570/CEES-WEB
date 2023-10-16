@@ -23,14 +23,22 @@ export default function UserHome() {
     navigate('/managerHome')
   }
 
+  const supplierView = () => {
+    navigate('/supplierView')
+  }
+
   return (
 
     <div>
       <h1>User Home</h1>
+
       <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
       <button className="inventory" onClick={Inventory}>Inventory</button>
       <button className="vieworder" onClick={SiteManagerViewOrder}>view order</button>
       <button className="managerHome" onClick={handleManagerHome}>managee home</button>
+      <button className="managerHome" onClick={handleManagerHome}>managee home</button>
+      <button className="supplierView" onClick={supplierView}>Supplier home</button>
+
     <div className="text-center mt-8">
       <h1 className="text-3xl font-semibold mb-4">User Home</h1>
       <button
@@ -52,9 +60,16 @@ export default function UserHome() {
         Manager Home
       </button>
 
+      <button
+        className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md"
+        onClick={supplierView}
+      >
+        Supplier Home
+      </button>
+
     </div>
 
-
+</div>
 
   );
 

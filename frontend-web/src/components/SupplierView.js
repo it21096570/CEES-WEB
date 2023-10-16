@@ -29,7 +29,7 @@ export default function SupplierView() {
     const filteredData = orderDetails
         .filter((item) => (
             item.name && item.name.toLowerCase().includes(search.toLowerCase()) &&
-            item.status === 'Approved' // Filter by status = Approved
+            item.status === 'Approved' 
         ));
     
 
@@ -86,7 +86,7 @@ export default function SupplierView() {
                             className="w-96 py-2 pl-8 pr-3 border rounded-lg"
                         />
                         <div className="absolute top-0 left-2 mt-2 text-gray-500">
-                            {/* Add your search icon here */}
+                            {/*  search icon  */}
                             <i className="fas fa-search"></i>
                         </div>
                     </div>
