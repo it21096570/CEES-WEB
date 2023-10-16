@@ -20,6 +20,8 @@ import Footer from './components/Footer';
 
 
 import Cookies from 'js-cookie';
+
+//sadeepa
 import ViewAllUsers from './components/ViewAllUsers';
 import UpdateUser from './components/UpdateUser';
 import ManagerHome from './components/ManagerHome';
@@ -28,13 +30,17 @@ import PaymentDetails from './components/PaymentDetails';
 import InvoicesManagement from './components/InvoicesManagement';
 import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
+
+
 import SupplierView from './components/SupplierView';
 import InvoiceForm from './components/InvoiceForm';
 
+//Thanuja
+import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
 
-
-
+//Sandeepa
+import CreateInventry from './components/CreateInventory';
 
 function App() {
 
@@ -101,7 +107,8 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
-                <Route path='/invoiceForm' element={<InvoiceForm />} />
+                <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
+
 
 
 
