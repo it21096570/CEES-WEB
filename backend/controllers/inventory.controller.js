@@ -1,6 +1,4 @@
-
 const inventoryService = require('../services/inventory.service');
-
 
 const createInventory = async (req, res) => {
     try {
@@ -13,11 +11,10 @@ const createInventory = async (req, res) => {
     }
 };
 
-
 const getInventory = async (req, res) => {
     try {
-        const inventory = await inventoryService.getinventory();
-        res.status(200).json(inventory);
+        const inventoryItems = await inventoryService.getinventory();
+        res.status(200).json(inventoryItems);
     } catch (error) {
         console.error('Error fetching inventory:', error);
         res.status(500).json({ error: 'Internal Server Error' });

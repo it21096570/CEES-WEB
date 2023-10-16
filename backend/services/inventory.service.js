@@ -15,7 +15,7 @@ const createinventory = async (data) => {
 
 const getinventory = async () => {
     try {
-        const inventoryItems = await inventoryItems.find();
+        const inventoryItems = await Inventory.find(); // Use 'Inventory' instead of 'inventoryItems'
         return inventoryItems;
     } catch (error) {
         console.error('Error fetching inventory:', error);
