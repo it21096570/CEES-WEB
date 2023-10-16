@@ -24,6 +24,7 @@ const itemsRoutes = require('./routes/items.routes');
 const orderRoutes = require('./routes/order.routes');
 const orderItemRoutes = require('./routes/orderItems.routes');
 const inventoryRoutes = require('./routes/inventory.routes');
+const invoiceRoutes = require('./routes/invoice.routes');
 
 
 
@@ -85,4 +86,4 @@ app.use('/inventory', inventoryRoutes);
 
 
 //kamishka
-app.use('/invoice', inventoryRoutes);
+app.use('/invoice', invoiceRoutes);
