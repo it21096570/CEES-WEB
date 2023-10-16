@@ -18,6 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer';
 
 
+
 import Cookies from 'js-cookie';
 import ViewAllUsers from './components/ViewAllUsers';
 import UpdateUser from './components/UpdateUser';
@@ -27,6 +28,8 @@ import PaymentDetails from './components/PaymentDetails';
 import InvoicesManagement from './components/InvoicesManagement';
 import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
+import SupplierView from './components/SupplierView';
+
 
 
 
@@ -66,6 +69,8 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/getUsers' element={<ViewAllUsers />} />
+                <Route path='/supplierView' element={<SupplierView />} />
+
 
                 <Route path='/updateUsers/:userId' element={<UpdateUser />} />
 
@@ -76,6 +81,7 @@ function App() {
                 <Route path='/invoiceManagement' element={<InvoicesManagement />} />
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
+
 
 
               </Routes>
@@ -91,6 +97,8 @@ function App() {
                 <Route path='/userHome' element={<UserHome />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
+                <Route path='/supplierView' element={<SupplierView />} />
+
 
 
 
