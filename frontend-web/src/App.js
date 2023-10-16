@@ -32,8 +32,6 @@ import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
 
 
-import SupplierView from './components/SupplierView';
-
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
@@ -41,6 +39,15 @@ import CreateInventory from './components/CreateInventory';
 import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
 import UpdateInventory from './components/UpdateInventory';
 
+
+
+
+
+
+//kamishka
+import SupplierView from './components/SupplierView';
+import SupplierOrderView from './components/SupplierOrderView';
+import InvoiceForm from './components/InvoiceForm';
 
 
 
@@ -84,15 +91,11 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
 
 
+
                 <Route path='/updateUsers/:userId' element={<UpdateUser />} />
 
 
-                <Route path='/managerHome' element={<ManagerHome />} />
-                <Route path='/orderManagement' element={<OrderManagement />} />
-                <Route path='/paymentDetails' element={<PaymentDetails />} />
-                <Route path='/invoiceManagement' element={<InvoicesManagement />} />
-                <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
-                <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
+
 
                 
 
@@ -115,13 +118,21 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
-              
+
 
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
                 <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
                 
 
+                <Route path='/managerHome' element={<ManagerHome />} />
+                <Route path='/orderManagement' element={<OrderManagement />} />
+                <Route path='/paymentDetails' element={<PaymentDetails />} />
+                <Route path='/invoiceManagement' element={<InvoicesManagement />} />
+                <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
+                <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
+                <Route path='/supplierOrderView/:orderId' element={<SupplierOrderView />} />
+                <Route path='/invoiceForm/:orderId' element={<InvoiceForm />} />
 
 
 
