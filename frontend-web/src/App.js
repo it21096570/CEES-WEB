@@ -84,12 +84,7 @@ function App() {
                 <Route path='/updateUsers/:userId' element={<UpdateUser />} />
 
 
-                <Route path='/managerHome' element={<ManagerHome />} />
-                <Route path='/orderManagement' element={<OrderManagement />} />
-                <Route path='/paymentDetails' element={<PaymentDetails />} />
-                <Route path='/invoiceManagement' element={<InvoicesManagement />} />
-                <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
-                <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
+
 
 
 
@@ -111,7 +106,12 @@ function App() {
 
 
 
-
+                <Route path='/managerHome' element={<ManagerHome />} />
+                <Route path='/orderManagement' element={<OrderManagement />} />
+                <Route path='/paymentDetails' element={<PaymentDetails />} />
+                <Route path='/invoiceManagement' element={<InvoicesManagement />} />
+                <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
+                <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
 
 
               </Routes>
