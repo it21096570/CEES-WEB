@@ -61,10 +61,21 @@ const deleteOrderItems = async (id) => {
     }
 };
 
+const getOrderItemsByOrderID = async (orderId) => {
+    try {
+        const orderItems = await OrderItem.find({ orderId });
+        return orderItems;
+    } catch (error) {
+        console.error('Error fetching order items:', error);
+        throw new Error('Fetching order items failed');
+    }
+};
+
 module.exports = {
     createOrderItems,
     getOrderItems,
     getOrderItemsById,
     updateOrderItems,
     deleteOrderItems,
+    getOrderItemsByOrderID
 };
