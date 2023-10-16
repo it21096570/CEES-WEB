@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export default function UpdateInventory() {
   const navigate = useNavigate();
+  const { inventoryId } = useParams();
+  
   const [inventory, setInventory] = useState({});
   const [updatedInventory, setUpdatedInventory] = useState({ name: '', quantity: '', avgunitprice: '' });
-  const { inventoryId } = useParams();
-
+  
   useEffect(() => {
     // Fetch the selected inventory's details
     axios

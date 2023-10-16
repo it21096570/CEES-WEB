@@ -42,10 +42,13 @@ import UpdateInventory from './components/UpdateInventory';
 
 
 
+
+
 //kamishka
 import SupplierView from './components/SupplierView';
 import SupplierOrderView from './components/SupplierOrderView';
 import InvoiceForm from './components/InvoiceForm';
+
 
 
 
@@ -116,10 +119,11 @@ function App() {
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
 
+
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
-                <Route path='/UpdateInventory' element={<UpdateInventory />} />
-
+                <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
+                
 
                 <Route path='/managerHome' element={<ManagerHome />} />
                 <Route path='/orderManagement' element={<OrderManagement />} />

@@ -42,7 +42,9 @@ const updateInventory = async (req, res) => {
 };
 
 const deleteInventory = async (req, res) => {
+    
     try {
+        console.log(req.params.id)
         await inventoryService.deleteinventory(req.params.id);
         res.status(204).send();
     } catch (error) {
