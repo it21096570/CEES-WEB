@@ -6,6 +6,9 @@ import { useFonts } from "expo-font";
 import SignUp from "./screens/SignUp";
 import Login from "./screens/Login";
 
+import DashBoard from "./screens/DashBoard";
+import SuppliyerHome from "./screens/SuppliyerHome";
+
 
 
 import UserHomePage from "./screens/UserHomePage";
@@ -16,6 +19,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import GoogleSignInScreen from "./components/GoogleSignInScreen";
 import GoogleSignInWebView from "./components/GoogleSignInWebView";
+import InvoiceCreatePage from "./screens/InvoiceCreatePage";
 
 
 const App = () => {
@@ -103,6 +107,27 @@ const App = () => {
             component={GoogleSignInWebView}
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen
+            name="SuppliyerHome"
+            component={SuppliyerHome}
+            options={{ headerShown: false }}
+          />
+
+
+          <Stack.Screen
+            name="DashBoard"
+            component={DashBoard}
+            options={{ headerShown: false }}
+          />
+
+
+          <Stack.Screen
+            name="InvoiceCreatePage"
+            component={InvoiceCreatePage}
+            options={{ headerShown: false }}
+          />
+
 
           <Stack.Screen
             name="UserHomePage"
