@@ -37,6 +37,7 @@ import SupplierView from './components/SupplierView';
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 import SiteManagerViewOrder from './components/SiteManagerViewOrder';
+import SiteManagerViewOrderDetails from './components/SiteManagerViewOrderDetail';
 
 
 //Sandeepa
@@ -102,10 +103,10 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
-                <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />SiteManagerViewOrder
+                <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
                 <Route path='/SiteManagerViewOrder' element={<SiteManagerViewOrder />} />
+                <Route path='/SiteManagerViewOrderDetails/:orderId' element={<SiteManagerViewOrderDetails />} />
 
-                <Route path='/SiteManagerCreateOrder' element={<CreateInventry />} />
 
 
                 <Route path='/managerHome' element={<ManagerHome />} />

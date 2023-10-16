@@ -6,9 +6,12 @@ import 'jspdf-autotable';
 
 function SiteManagerViewOrderDetail() {
     const { orderId } = useParams();
+
     const [search, setSearch] = useState('');
     const [orderDetails, setOrderDetails] = useState({});
     const [orderItemDetails, setOrderItemDetails] = useState([]);
+    const [editMode, setEditMode] = useState({});
+    const [editedQuantities, setEditedQuantities] = useState({});
 
     useEffect(() => {
         async function fetchData() {
@@ -19,10 +22,14 @@ function SiteManagerViewOrderDetail() {
                 const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
                 setOrderItemDetails(itemResponse.data);
 
-
-                alert(orderItemDetails.length)
-                console.log(orderItemDetails);
-
+                const initialEditMode = {};
+                const initialEditedQuantities = {};
+                itemResponse.data.forEach((item) => {
+                    initialEditMode[item._id] = false;
+                    initialEditedQuantities[item._id] = item.qty;
+                });
+                setEditMode(initialEditMode);
+                setEditedQuantities(initialEditedQuantities);
             } catch (error) {
                 console.error("Error fetching data: " + error);
             }
@@ -31,48 +38,39 @@ function SiteManagerViewOrderDetail() {
         fetchData();
     }, [orderId]);
 
-    const managerApproval = (id) => {
-        const newStatus = "Approved"; // Change this to the desired status
+    const toggleEditMode = (itemId) => {
+        setEditMode({ ...editMode, [itemId]: !editMode[itemId] });
+    };
 
-        axios.put(`http://localhost:8080/order/updateOrder/${id}`, { status: newStatus })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`Order ${orderId} has been ${newStatus}`);
-                    // Optionally, you can update the order status in your frontend data
-                    setOrderDetails({ ...orderDetails, status: newStatus });
+    const updateQuantity = (itemId, newQuantity) => {
+        if (newQuantity >= 0) {
+            setEditedQuantities({ ...editedQuantities, [itemId]: newQuantity });
+        }
+    };
+
+    const saveEditedQuantities = (orderId, itemId) => { // Add 'orderId' as a parameter
+        const newQuantity = editedQuantities[itemId];
+
+        alert(orderId+"    "+itemId);
+    
+        axios
+            .put(`http://localhost:8080/orderItem/updateOrderItems/652d3eb16a46d21dc697000c/652d0e36f61f33727fb307c5`, { qty: newQuantity })
+            .then(() => {
+                toggleEditMode(itemId);
+                alert("Quantity updated successfully.");
+                const updatedOrderItemDetails = [...orderItemDetails];
+                const editedItemIndex = updatedOrderItemDetails.findIndex((item) => item._id === itemId);
+                if (editedItemIndex !== -1) {
+                    updatedOrderItemDetails[editedItemIndex].qty = newQuantity;
+                    setOrderItemDetails(updatedOrderItemDetails);
                 }
             })
             .catch((error) => {
-                console.error('Error updating order status: ', error);
-                alert('Error updating order status: ' + error.message);
+                console.error('Error updating quantity: ', error);
+                alert('Error updating quantity: ' + error.message);
             });
     };
-
-    const managerReject = (id) => {
-        const newStatus = "Rejected"; // Change this to the desired status
-
-        axios.put(`http://localhost:8080/order/updateOrder/${id}`, { status: newStatus })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`Order ${orderId} has been ${newStatus}`);
-                    // Optionally, you can update the order status in your frontend data
-                    setOrderDetails({ ...orderDetails, status: newStatus });
-                }
-            })
-            .catch((error) => {
-                console.error('Error updating order status: ', error);
-                alert('Error updating order status: ' + error.message);
-            });
-    };
-
-    // Filter order items based on the search input
-    let filteredItems = [];
-    if (Array.isArray(orderItemDetails)) {
-        filteredItems = orderItemDetails.filter((item) => (
-            item.item.name && item.item.name.toLowerCase().includes(search.toLowerCase())
-        ));
-    }
-
+    
     function generatePdf() {
         const unit = "pt";
         const size = "A3";
@@ -83,11 +81,22 @@ function SiteManagerViewOrderDetail() {
 
         const title = "Order Table Details";
         const headers = ["Item Name", "Quantity", "Unit Price", "Item Total"];
-        const data = filteredItems.map((rep) => [
-            rep.itemName,
-            rep.qty,
-            rep.unitPrice,
-            rep.itemTotal,
+        const data = orderItemDetails.map((item) => [
+            item.item.name,
+            editMode[item._id] ? (
+                <div>
+                    <input
+                        type="number"
+                        value={editedQuantities[item._id]}
+                        onChange={(e) => updateQuantity(item._id, e.target.value)}
+                    />
+                    <button onClick={() => saveEditedQuantities(item._id)}>Save</button>
+                </div>
+            ) : (
+                item.qty
+            ),
+            item.item.avgunitprice,
+            item.itemtotal,
         ]);
 
         let content = {
@@ -99,7 +108,6 @@ function SiteManagerViewOrderDetail() {
         doc.setFontSize(18);
         doc.text(title, marginLeft, 40);
 
-        // Add Order Name, Status, and Total Price to the header
         doc.setFontSize(12);
         doc.text(`Order Name: ${orderDetails.name}`, margin, 20);
         doc.text(`Status: ${orderDetails.status}`, margin, 30);
@@ -114,8 +122,10 @@ function SiteManagerViewOrderDetail() {
             <div className="w-52 md:w-2/3 lg:w-1/3 shadow-lg bg-white mx-auto p-2 float-left mt-5">
                 <h1 className="text-lg font-semibold">Order Details</h1>
                 <p className="text-sm">
-                    Order Name: {orderDetails.name}<br />
-                    Total Cost: ${orderDetails.total}<br />
+                    Order Name: {orderDetails.name}
+                    <br />
+                    Total Cost: ${orderDetails.total}
+                    <br />
                     Status: {orderDetails.status}
                 </p>
             </div>
@@ -130,30 +140,23 @@ function SiteManagerViewOrderDetail() {
                     />
                     <div className="flex items-center space-x-4">
                         <button
-                            className="flex items-center bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-                            onClick={() => managerApproval(orderDetails._id)}
-                        >
-                            <span className="mr-2">Approve</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                        </button>
-                        <button
-                            className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                            onClick={() => managerReject(orderDetails._id)}
-                        >
-                            <span className="mr-2">Reject</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                        <button
                             className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                             onClick={generatePdf}
                         >
                             <span className="mr-2">Print</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19l-7-7 7-7m4 14l7-7-7-7"></path>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M9 19l-7-7 7-7m4 14l7-7-7-7"
+                                ></path>
                             </svg>
                         </button>
                     </div>
@@ -166,15 +169,41 @@ function SiteManagerViewOrderDetail() {
                         <th className="py-2 px-4 font-semibold">Quantity</th>
                         <th className="py-2 px-4 font-semibold">Unit Price(RS)</th>
                         <th className="py-2 px-4 font-semibold">Item Total(RS)</th>
+                        <th className="py-2 px-4 font-semibold">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredItems.map((item, index) => (
+                    {orderItemDetails.map((item, index) => (
                         <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
                             <td className="py-2 px-4">{item.item.name}</td>
-                            <td className="py-2 px-4">{item.qty}</td>
+                            <td className="py-2 px-4">
+                                {editMode[item._id] ? (
+                                    <div>
+                                        <input
+                                            type="number"
+                                            value={editedQuantities[item._id]}
+                                            onChange={(e) => updateQuantity(item._id, e.target.value)}
+                                        />
+                                     <button onClick={() => saveEditedQuantities(orderDetails._id, item.item._id)}>Save</button>
+
+                                    </div>
+                                ) : (
+                                    item.qty
+                                )}
+                            </td>
                             <td className="py-2 px-4">{item.item.avgunitprice}</td>
                             <td className="py-2 px-4">{item.itemtotal}</td>
+                            <td className="py-2 px-4 space-x-2">
+                                <button
+                                    className="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                                    onClick={() => toggleEditMode(item._id)}
+                                >
+                                    {editMode[item._id] ? "Cancel" : "Edit"}
+                                </button>
+                                <button className="bg-red-500 text-white py-1 px-2 rounded hover-bg-red-600">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

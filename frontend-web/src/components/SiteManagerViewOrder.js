@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-
-
 function SiteManagerViewOrder() {
-
     const [search, setSearch] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('All');
     const [orderDetails, setOrderDetails] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         function getOrderDetails() {
@@ -26,12 +24,16 @@ function SiteManagerViewOrder() {
         getOrderDetails();
     }, []);
 
-    const deleteOrder = (id) => {
+    const deleteOrder = (id, status) => {
+        if (status === 'Approved') {
+            alert("Cannot delete an approved order.");
+            return;
+        }
+
         axios.delete(`http://localhost:8080/order/deleteOrder/${id}`)
             .then(() => {
-
-                alert("Delete Success")
-                window.location.reload('/orderManagement')
+                alert("Delete Success");
+                navigate('/orderManagement');
             })
             .catch((error) => {
                 console.error('Error deleting order: ', error);
@@ -44,15 +46,13 @@ function SiteManagerViewOrder() {
         (item.name && item.name.toLowerCase().includes(search.toLowerCase()))
     ));
 
-
-
     function generatePdf() {
         const unit = "pt";
         const size = "A3";
         const orientation = "portrait";
 
         const marginLeft = 400;
-        const margin = 20
+        const margin = 20;
         const doc = new jsPDF(orientation, unit, size);
 
         const title = "All Orders Table Details";
@@ -80,8 +80,6 @@ function SiteManagerViewOrder() {
         doc.save("AllOrderDetails.pdf");
     }
 
-
-
     return (
         <div className="h-screen flex flex-col items-center">
             <h1 className="text-4xl font-semibold mb-4">Order Details</h1>
@@ -97,7 +95,6 @@ function SiteManagerViewOrder() {
                             className="w-96 py-2 pl-8 pr-3 border rounded-lg"
                         />
                         <div className="absolute top-0 left-2 mt-2 text-gray-500">
-                            {/* Add your search icon here */}
                             <i className="fas fa-search"></i>
                         </div>
                     </div>
@@ -138,12 +135,12 @@ function SiteManagerViewOrder() {
                             <td className="py-2 px-4">{item.total}</td>
                             <td className="py-2 px-4">{item.status}</td>
                             <td className="py-2 px-4">
-                                <Link to={`/SiteManagerCreateOrder/${item._id}`}>
+                                <Link to={`/SiteManagerViewOrderDetails/${item._id}`}>
                                     <button className="text-blue-500 hover:underline">Details</button>
                                 </Link>
                             </td>
                             <td className="py-2 px-4">
-                                <button className="text-blue-500 hover:underline" onClick={() => deleteOrder(item._id)}>
+                                <button className="text-blue-500 hover:underline" onClick={() => deleteOrder(item._id, item.status)} disabled={item.status === 'Approved'}>
                                     Delete
                                 </button>
                             </td>
@@ -154,6 +151,5 @@ function SiteManagerViewOrder() {
         </div>
     );
 }
-
 
 export default SiteManagerViewOrder;

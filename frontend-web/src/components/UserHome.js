@@ -29,6 +29,7 @@ export default function UserHome() {
       <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
       <button className="inventory" onClick={Inventory}>Inventory</button>
       <button className="vieworder" onClick={SiteManagerViewOrder}>view order</button>
+      <button className="managerHome" onClick={handleManagerHome}>managee home</button>
     </div>
 
 
