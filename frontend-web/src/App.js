@@ -44,6 +44,7 @@ import UpdateInventory from './components/UpdateInventory';
 
 
 
+
 function App() {
 
 
@@ -114,12 +115,12 @@ function App() {
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
 
-                <Route path='/SiteManagerCreateOrder' element={<CreateInventry />} />
+              
 
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
-                <Route path='/UpdateInventory' element={<UpdateInventory />} />
-
+                <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
+                
 
 
 
