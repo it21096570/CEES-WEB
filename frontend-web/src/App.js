@@ -20,6 +20,8 @@ import Footer from './components/Footer';
 
 
 import Cookies from 'js-cookie';
+
+//sadeepa
 import ViewAllUsers from './components/ViewAllUsers';
 import UpdateUser from './components/UpdateUser';
 import ManagerHome from './components/ManagerHome';
@@ -28,6 +30,8 @@ import PaymentDetails from './components/PaymentDetails';
 import InvoicesManagement from './components/InvoicesManagement';
 import OrderDetailsDisplay from './components/OrderDetailsDisplay';
 import InvoicePayment from './components/InvoicePayment';
+
+
 import SupplierView from './components/SupplierView';
 
 //Thanuja
@@ -35,7 +39,7 @@ import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 
 
 //Sandeepa
-import CreateInventry from './components/CreateInventry';
+import CreateInventry from './components/CreateInventory';
 
 function App() {
 
