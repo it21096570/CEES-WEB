@@ -21,43 +21,57 @@ export default function InvoiceForm() {
   }, [orderId]);
 
   const handleSubmit = () => {
-    // Send a request to update the order with the new total
+    // Send a request to create a new invoice directly with values
     axios
-      .put(`http://localhost:8080/order/updateOrder/${orderId}`, {total: newTotal })
-      .then(async (response) => {
-        alert('Order updated successfully');
-        // Create a new invoice record
-        const newInvoice = {
-          ordername: orderDetails.name,
-          ordertotal: newTotal,
-          orderstatus: orderDetails.status,
-          actualprice: orderDetails.total,
-        };
-        await axios.post(`http://localhost:8080/invoice/createInvoice`, newInvoice);
+      .post(`http://localhost:8080/invoice/createInvoice`, {
+        ordername: orderDetails.name,
+        ordertotal: newTotal,
+        orderstatus: orderDetails.status,
+        actualprice: orderDetails.total,
+      })
+      .then(() => {
         alert('New invoice created successfully');
         // You can handle success here, e.g., navigate back to the previous page
       })
       .catch((error) => {
-        console.error('Error updating order: ' + error);
-        alert('Error updating order: ' + error.message);
+        console.error('Error creating invoice: ' + error);
+        alert('Error creating invoice: ' + error.message);
       });
   };
 
   return (
-    <div>
-      <h1>Invoice Form</h1>
-      <p>Order Name: {orderDetails.name}</p>
-      <p>Total Cost: ${orderDetails.total}</p>
-      <p>Status: {orderDetails.status}</p>
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-semibold mb-4">Create Invoice</h1>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Order Name:</label>
+        <p className="text-gray-800">{orderDetails.name}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Total Cost:</label>
+        <p className="text-gray-800">${orderDetails.total}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Status:</label>
+        <p className="text-gray-800">{orderDetails.status}</p>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label>New Total: </label>
-        <input
-          type="number"
-          value={newTotal}
-          onChange={(e) => setNewTotal(e.target.value)}
-        />
-        <button type="submit">Submit</button>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">New Total:</label>
+          <input
+            type="number"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none"
+            value={newTotal}
+            onChange={(e) => setNewTotal(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 focus:outline-none"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
 }
+
