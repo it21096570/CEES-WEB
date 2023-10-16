@@ -1,113 +1,137 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-function CreateInventory() {
+export default function CreateInventory() {
+  const [name, setName] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [avgunitprice, setavgunitprice] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [quantityError, setQuantityError] = useState('');
+  const [avgunitpriceError, setavgunitpriceError] = useState('');
   const navigate = useNavigate();
 
-  const [inventoryData, setInventoryData] = useState({
-    inventoryName: '',
-    quantity: '',
-  });
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
-  const [errors, setErrors] = useState({});
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInventoryData({
-      ...inventoryData,
-      [name]: value,
-    });
+  const handleQuantityChange = (e) => {
+    setQuantity(e.target.value);
+  };
+  
+  const handleavgunitpriceChange = (e) => {
+    setavgunitprice(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    const validationErrors = {};
-
-    if (!inventoryData.inventoryName.trim()) {
-      validationErrors.inventoryName = 'Inventory Name is required';
+    // Validation
+    let isValid = true;
+    if (name.trim() === '') {
+      setNameError('Name is required.');
+      isValid = false;
+    } else {
+      setNameError('');
     }
-    if (!inventoryData.quantity.trim()) {
-      validationErrors.quantity = 'Quantity is required';
+
+    if (quantity.trim() === '') {
+      setQuantityError('Quantity is required.');
+      isValid = false;
+    } else {
+      setQuantityError('');
     }
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+    if (avgunitprice.trim() === '') {
+        setavgunitpriceError('Average unit price is required.');
+        isValid = false;
+    } else {
+        setavgunitpriceError('');
+    }
+
+    if (!isValid) {
+      return; // Do not submit the form if there are validation errors.
     }
 
     try {
-      // Send a POST request to your server to add the course
-      await axios.post('http://localhost:8080/inventory/createInventory', inventoryData);
-      // Redirect to a different page or display a success message
-      alert('Inventory items added successfully!');
-      // Optionally reset the form
-      setInventoryData({
-        inventoryName: '',
-        quantity: '',
+      const response = await axios.post('http://localhost:8080/inventory/createInventory', {
+        name,
+        quantity,
+        avgunitprice,
       });
-      navigate('');
+
+      console.log('Inventory Item created:', response.data);
+
+      // Clear the form fields after successful submission
+      setName('');
+      setQuantity('');
+      setavgunitprice('');
+
+      alert('Inventory created successfully');
+      navigate(`/InventoryDetailsDisplay`); // Redirect to the desired page after submission
     } catch (error) {
-      // Handle errors, e.g., display an error message
-      console.error('Error adding inventory:', error);
+      console.error('Error creating inventory:', error);
     }
   };
-
+  
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-96">
-        <h2 className="text-2xl font-bold text-blue-500 mb-4">Add Inventory</h2>
+    <div className="container mx-auto p-4">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-3xl font-semibold text-themeBlue mb-4">Create New Inventory</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="inventoryName" className="block text-blue-500">
+            <label htmlFor="name" className="block text-themeBlue text-lg font-semibold mb-2">
               Item Name:
             </label>
             <input
               type="text"
-              id="inventoryName"
-              name="inventoryName"
-              value={inventoryData.inventoryName}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md border-blue-300 focus:outline-none focus:border-blue-500 ${
-                errors.inventoryName ? 'border-red-500' : ''
+              id="name"
+              value={name}
+              onChange={handleNameChange}
+              className={`form-input w-full p-2 border border-themeLightGray rounded-md ${
+                nameError ? 'border-red-500' : ''
               }`}
             />
-            {errors.inventoryName && (
-              <p className="text-red-500 text-xs mt-1">{errors.inventoryName}</p>
-            )}
+            {nameError && <p className="text-red-500 mt-2">{nameError}</p>}
           </div>
           <div className="mb-4">
-            <label htmlFor="quantity" className="block text-blue-500">
+            <label htmlFor="quantity" className="block text-themeBlue text-lg font-semibold mb-2">
               Quantity:
             </label>
             <input
               type="text"
               id="quantity"
-              name="quantity"
-              value={inventoryData.quantity}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border rounded-md border-blue-300 focus:outline-none focus:border-blue-500 ${
-                errors.quantity ? 'border-red-500' : ''
+              value={quantity}
+              onChange={handleQuantityChange}
+              className={`form-input w-full p-2 border border-themeLightGray rounded-md ${
+                quantityError ? 'border-red-500' : ''
               }`}
             />
-            {errors.quantity && (
-              <p className="text-red-500 text-xs mt-1">{errors.quantity}</p>
-            )}
+            {quantityError && <p className="text-red-500 mt-2">{quantityError}</p>}
           </div>
-          <div>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none"
-            >
-              Add Inventory
-            </button>
+          <div className="mb-4">
+            <label htmlFor="avgunitprice" className="block text-themeBlue text-lg font-semibold mb-2">
+              Average Unit Price:
+            </label>
+            <input
+              type="text"
+              id="avgunitprice"
+              value={avgunitprice}
+              onChange={handleavgunitpriceChange}
+              className={`form-input w-full p-2 border border-themeLightGray rounded-md ${
+                avgunitpriceError ? 'border-red-500' : ''
+              }`}
+            />
+            {avgunitpriceError && <p className="text-red-500 mt-2">{avgunitpriceError}</p>}
           </div>
+          <button
+            type="submit"
+            className="btn create-post-btn bg-themePurple hover-bg-themeBlue text-white py-2 px-4 rounded-md transition duration-300"
+          >
+            Create Inventory
+          </button>
         </form>
       </div>
     </div>
   );
 }
-
-export default CreateInventory;

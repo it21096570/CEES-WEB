@@ -31,8 +31,9 @@ import InvoicePayment from './components/InvoicePayment';
 import SupplierView from './components/SupplierView';
 
 
+import CreateInventory from './components/CreateInventory';
+import InventoryDetailsDisplay from './components/InventoryDetailsDisplay'
 
-import CreateInventory from './components/createInventory';
 
 
 
@@ -85,7 +86,9 @@ function App() {
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
 
-                <Route path='/createInventory' element={<CreateInventory/>}/>
+                
+
+                
 
 
               </Routes>
@@ -102,6 +105,9 @@ function App() {
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
+
+                <Route path='/CreateInventory' element={<CreateInventory />} />
+                <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
 
 
 
