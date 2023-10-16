@@ -97,7 +97,8 @@ function App() {
                 <Route path='/userHome' element={<UserHome />} />
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/resetPassword' element={<ResetPassword />} />
-                
+                <Route path='/supplierView' element={<SupplierView />} />
+
 
 
 

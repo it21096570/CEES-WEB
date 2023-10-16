@@ -86,7 +86,7 @@ export default function NavBarUser() {
                                         >
                                             <ul className="bg-white text-black border border-gray-200 rounded-lg">
                                                 <li>
-                                                    <a className="block px-4 py-2 hover:bg-gray-200" href={'/getCourseAdmin'}>
+                                                    <a className="block px-4 py-2 hover:bg-gray-200" href={'/supplierView'}>
                                                         View Course & Tutes
                                                     </a>
                                                 </li>
@@ -153,7 +153,7 @@ export default function NavBarUser() {
                                     </li>
 
                                     <li className="nav-item">
-                                        <a className="nav-link" href="/viewCourses">
+                                        <a className="nav-link" href="/supplierView">
                                             <FontAwesomeIcon icon={faGraduationCap} /> Courese & Tutes
                                         </a>
                                     </li>
