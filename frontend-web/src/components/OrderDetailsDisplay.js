@@ -19,6 +19,8 @@ export default function OrderDetailsDisplay() {
                 const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
                 setOrderItemDetails(itemResponse.data);
 
+
+                alert(orderItemDetails.length)
                 console.log(orderItemDetails);
 
             } catch (error) {
@@ -67,11 +69,9 @@ export default function OrderDetailsDisplay() {
     let filteredItems = [];
     if (Array.isArray(orderItemDetails)) {
         filteredItems = orderItemDetails.filter((item) => (
-            item.itemName && item.itemName.toLowerCase().includes(search.toLowerCase())
+            item.item.name && item.item.name.toLowerCase().includes(search.toLowerCase())
         ));
     }
-
-    const totalCost = filteredItems.reduce((total, item) => total + item.itemTotal, 0);
 
     function generatePdf() {
         const unit = "pt";
@@ -164,23 +164,23 @@ export default function OrderDetailsDisplay() {
                     <tr>
                         <th className="py-2 px-4 font-semibold">Item</th>
                         <th className="py-2 px-4 font-semibold">Quantity</th>
-                        <th className="py-2 px-4 font-semibold">Unit Price</th>
-                        <th className="py-2 px-4 font-semibold">Item Total</th>
+                        <th className="py-2 px-4 font-semibold">Unit Price(RS)</th>
+                        <th className="py-2 px-4 font-semibold">Item Total(RS)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredItems.map((item, index) => (
                         <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
-                            <td className="py-2 px-4">{item.itemName}</td>
+                            <td className="py-2 px-4">{item.item.name}</td>
                             <td className="py-2 px-4">{item.qty}</td>
-                            <td className="py-2 px-4">${item.unitPrice}</td>
-                            <td className="py-2 px-4">${item.itemTotal}</td>
+                            <td className="py-2 px-4">{item.item.avgunitprice}</td>
+                            <td className="py-2 px-4">{item.itemtotal}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
             <p className="mt-4 text-lg font-semibold float-right">
-                Total Cost: ${totalCost}
+                Total Cost: {orderDetails.total}
             </p>
         </div>
     );
