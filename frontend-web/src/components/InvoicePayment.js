@@ -28,6 +28,7 @@ export default function InvoicePayment() {
             setCardNo('');
             setDate('');
             alert('Payment submitted successfully!');
+            navigate('/paymentDetails')
 
         } catch (error) {
             if (error.response) {
