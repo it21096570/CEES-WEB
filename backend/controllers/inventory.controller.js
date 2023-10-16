@@ -1,9 +1,11 @@
+
 const inventoryService = require('../services/inventory.service');
+
 
 const createInventory = async (req, res) => {
     try {
         const inventoryData = req.body;
-        const savedInventory = await inventoryService.createInventory(inventoryData);
+        const savedInventory = await inventoryService.createinventory(inventoryData);
         res.status(201).json(savedInventory);
     } catch (error) {
         console.error('Error creating inventory:', error);
@@ -11,9 +13,10 @@ const createInventory = async (req, res) => {
     }
 };
 
+
 const getInventory = async (req, res) => {
     try {
-        const inventory = await inventoryService.getInventory();
+        const inventory = await inventoryService.getinventory();
         res.status(200).json(inventory);
     } catch (error) {
         console.error('Error fetching inventory:', error);
@@ -23,7 +26,7 @@ const getInventory = async (req, res) => {
 
 const getInventoryById = async (req, res) => {
     try {
-        const inventory = await inventoryService.getInventoryById(req.params.id);
+        const inventory = await inventoryService.getinventoryById(req.params.id);
         res.status(200).json(inventory);
     } catch (error) {
         console.error('Error fetching inventory:', error);
@@ -33,7 +36,7 @@ const getInventoryById = async (req, res) => {
 
 const updateInventory = async (req, res) => {
     try {
-        const updatedInventory = await inventoryService.updateInventory(req.params.id, req.body);
+        const updatedInventory = await inventoryService.updateinventory(req.params.id, req.body);
         res.status(200).json(updatedInventory);
     } catch (error) {
         console.error('Error updating inventory:', error);
@@ -41,10 +44,9 @@ const updateInventory = async (req, res) => {
     }
 };
 
-
 const deleteInventory = async (req, res) => {
     try {
-        await inventoryService.deleteInventory(req.params.id);
+        await inventoryService.deleteinventory(req.params.id);
         res.status(204).send();
     } catch (error) {
         console.error('Error deleting inventory:', error);

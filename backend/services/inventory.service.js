@@ -1,21 +1,22 @@
-const inventory = require('../models/inventory.model');
+//const Inventory = require('../models/inventory.model');
 const inventoryFactory = require('../factory/inventory.factory');
+const Inventory = require('../models/inventory.model');
 
 const createinventory = async (data) => {
     try {
-        const inventory = inventoryFactory.createinventory(data);
-        const savedinventory = await inventory.save();
-        return savedinventory;
+        const inventoryItem = inventoryFactory.createinventory(data);
+        const savedInventory = await inventoryItem.save();
+        return savedInventory;
     } catch (error) {
         console.error('Error creating inventory:', error);
-        throw new Error('inventory creation failed');
+        throw new Error('Inventory creation failed');
     }
 };
 
 const getinventory = async () => {
     try {
-        const inventory = await inventory.find();
-        return inventory;
+        const inventoryItems = await inventoryItems.find();
+        return inventoryItems;
     } catch (error) {
         console.error('Error fetching inventory:', error);
         throw new Error('Fetching inventory failed');
@@ -37,7 +38,7 @@ const getinventoryById = async (id) => {
 
 const updateinventory = async (id, data) => {
     try {
-        const updatedinventory = await inventory.findByIdAndUpdate(id, data, { new: true });
+        const updatedinventory = await Inventory.findByIdAndUpdate(id, data, { new: true });
         if (!updatedinventory) {
             throw new Error('inventory not found');
         }

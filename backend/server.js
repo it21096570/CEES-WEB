@@ -23,6 +23,7 @@ const payementRoutes = require('./routes/payment.routes');
 const itemsRoutes = require('./routes/items.routes');
 const orderRoutes = require('./routes/order.routes');
 const orderItemRoutes = require('./routes/orderItems.routes');
+const inventoryRoutes = require('./routes/inventory.routes');
 
 
 
@@ -77,3 +78,4 @@ app.use('/payment', payementRoutes);
 app.use('/order', orderRoutes);
 app.use('/item', itemsRoutes);
 app.use('/orderItem', orderItemRoutes);
+app.use('/inventory', inventoryRoutes);
