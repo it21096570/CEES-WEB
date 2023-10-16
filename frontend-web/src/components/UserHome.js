@@ -15,7 +15,7 @@ export default function UserHome() {
   return (
     <div>
       <h1>User Home</h1>
-      <button onClick={SiteManagerCreateOrder}> order </button>
+      <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
     </div>
   );
 
