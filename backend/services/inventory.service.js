@@ -23,11 +23,12 @@ const getinventory = async () => {
     }
 };
 
+
 const getinventoryById = async (id) => {
     try {
-        const inventory = await inventory.findById(id);
+        const inventory = await Inventory.findById(id); // Use 'Inventory' instead of 'inventory'
         if (!inventory) {
-            throw new Error('inventory not found');
+            throw new Error('Inventory not found');
         }
         return inventory;
     } catch (error) {
@@ -35,6 +36,7 @@ const getinventoryById = async (id) => {
         throw new Error('Fetching inventory failed');
     }
 };
+
 
 const updateinventory = async (id, data) => {
     try {
