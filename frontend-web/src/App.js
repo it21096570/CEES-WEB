@@ -32,7 +32,6 @@ import SupplierView from './components/SupplierView';
 
 
 
-import CreateInventory from './components/createInventory';
 
 
 
@@ -85,7 +84,6 @@ function App() {
                 <Route path='/orderDetailsDisplay/:orderId' element={<OrderDetailsDisplay />} />
                 <Route path='/invoicePayment/:invoiceId' element={<InvoicePayment />} />
 
-                <Route path='/createInventory' element={<CreateInventory/>}/>
 
 
               </Routes>

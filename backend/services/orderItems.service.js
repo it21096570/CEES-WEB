@@ -63,13 +63,21 @@ const deleteOrderItems = async (id) => {
 
 const getOrderItemsByOrderID = async (orderId) => {
     try {
-        const orderItems = await OrderItems.find({ order: orderId });
+        const orderItems = await OrderItems.find({ order: orderId })
+            .populate('item')
+            .exec();
+
+        if (!orderItems) {
+            throw new Error('No order items found for the given order ID.');
+        }
+
         return orderItems;
     } catch (error) {
-        console.error('Error fetching order items:', error);
+        console.error('Error fetching order items by order ID:', error);
         throw new Error('Fetching order items failed');
     }
 };
+
 
 module.exports = {
     createOrderItems,
@@ -77,5 +85,6 @@ module.exports = {
     getOrderItemsById,
     updateOrderItems,
     deleteOrderItems,
-    getOrderItemsByOrderID
+    getOrderItemsByOrderID,
+
 };

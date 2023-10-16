@@ -54,10 +54,12 @@ const deleteOrderItems = async (req, res) => {
 const getOrderItemsByOrderID = async (req, res) => {
     try {
         const { orderId } = req.params;
+        console.log('Order ID:', orderId);
         const orderItems = await orderItemsService.getOrderItemsByOrderID(orderId);
+        console.log('Order Items:', orderItems);
         res.status(200).json(orderItems);
     } catch (error) {
-        console.error('Error fetching order items:', error);
+        console.error('Error fetching order items by order ID:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
