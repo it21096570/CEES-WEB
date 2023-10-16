@@ -21,7 +21,7 @@ function SupplierView() {
     return <div style={errorStyle}>Error: {error.message}</div>;
   } else {
     // Filter orders with status "approved"
-    const approvedOrders = orders.filter(order => order.status === "Rejected");
+    const approvedOrders = orders.filter(order => order.status === "Approved");
 
     return (
       <div style={supplierViewStyle}>
