@@ -12,11 +12,18 @@ export default function UserHome() {
     navigate('/SiteManagerCreateOrder');
   };
 
+  const Inventory = () => {
+    navigate('/CreateInventory');
+  };
+
   return (
     <div>
       <h1>User Home</h1>
       <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
+      <button className="inventory" onClick={Inventory}>Inventory</button>
     </div>
+
+    
   );
 
 }
