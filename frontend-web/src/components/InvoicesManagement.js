@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export default function InvoicesManagement() {
     const [invoices, setInvoices] = useState([]);
@@ -35,29 +37,76 @@ export default function InvoicesManagement() {
         calculateTotalCost();
     }, [filteredInvoices]);
 
+
+
+    function generatePdf() {
+        const unit = "pt";
+        const size = "A3";
+        const orientation = "portrait";
+
+        const marginLeft = 400;
+        const margin = 20
+        const doc = new jsPDF(orientation, unit, size);
+
+        const title = "All Invoice Table Details";
+        const headers = ["Order Id", "Order Name", "Total Cost", "Status"];
+        const data = filteredInvoices.map((rep) => [
+
+            rep.ordername,
+            rep.ordertotal,
+            rep.actualprice,
+        ]);
+
+        let content = {
+            startY: 70,
+            head: [headers],
+            body: data,
+        };
+
+        doc.setFontSize(18);
+        doc.text(title, marginLeft, 40);
+
+        // Add Order Name, Status, and Total Price to the header
+        doc.setFontSize(12);
+
+        doc.autoTable(content);
+        doc.save("AllInvoicesListDetails.pdf");
+    }
+
+
     return (
-        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto">
-            <div className="w-52 md:w-2/3 lg-w-1/3 shadow-lg bg-white mx-auto p-2 float-left mt-5">
-                <h1 className="text-lg font-semibold">Invoice Details</h1>
+        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto p-4 mt-10">
+            <div className="mb-4">
+                <h1 className="text-2xl font-semibold">Invoice Details</h1>
             </div>
-            <div className="flex justify-end pr-10 pt-10">
-                <div className="flex items-center">
+
+            <div className="flex justify-between items-center">
+                <div className="w-1/3">
                     <input
                         type="text"
                         placeholder="Search for invoices"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="mr-4 py-2 px-4 border rounded-lg"
+                        className="w-full p-2 border rounded-lg"
                     />
                 </div>
+                <div className="w-1/3 text-right">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={generatePdf}
+                    >
+                        Print
+                    </button>
+                </div>
             </div>
-            <table className="w-full shadow-lg bg-white my-4 mx-auto">
+
+            <table className="w-full mt-4 shadow-lg bg-white">
                 <thead>
-                    <tr>
+                    <tr className="bg-blue-100">
                         <th className="py-2 px-4 font-semibold">Order Name</th>
                         <th className="py-2 px-4 font-semibold">Order Total</th>
-                        <th className="py-2 px-4 font-semibold">Order Status</th>
                         <th className="py-2 px-4 font-semibold">Actual Price</th>
+                        <th className="py-2 px-4 font-semibold">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,17 +114,17 @@ export default function InvoicesManagement() {
                         <tr key={index} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
                             <td className="py-2 px-4">{invoice.ordername}</td>
                             <td className="py-2 px-4">${invoice.ordertotal}</td>
-                            <td className="py-2 px-4">{invoice.orderstatus}</td>
                             <td className="py-2 px-4">${invoice.actualprice}</td>
                             <td className="py-2 px-4">
                                 <Link to={`/invoicePayment/${invoice._id}`}>
                                     <button className="text-blue-500 hover:underline">Pay Now</button>
-                                </Link></td>
+                                </Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <p className="mt-4 text-lg font-semibold float-right">
+            <p className="mt-4 text-lg font-semibold text-right">
                 Total Cost: ${totalCost}
             </p>
         </div>
