@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -16,8 +16,11 @@ export default function OrderDetailsDisplay() {
                 const orderResponse = await axios.get(`http://localhost:8080/order/getOneOrder/${orderId}`);
                 setOrderDetails(orderResponse.data);
 
-                const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOneOrder/${orderId}`);
+                const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
                 setOrderItemDetails(itemResponse.data);
+
+                console.log(orderItemDetails);
+
             } catch (error) {
                 console.error("Error fetching data: " + error);
             }
@@ -132,14 +135,16 @@ export default function OrderDetailsDisplay() {
                         >
                             <span className="mr-2">Approve</span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                             </svg>
                         </button>
-                        <button className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                            onClick={() => managerReject(orderDetails._id)} >
+                        <button
+                            className="flex items-center bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                            onClick={() => managerReject(orderDetails._id)}
+                        >
                             <span className="mr-2">Reject</span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
                         </button>
                         <button
@@ -148,7 +153,7 @@ export default function OrderDetailsDisplay() {
                         >
                             <span className="mr-2">Print</span>
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19l-7-7 7-7m4 14l7-7-7-7"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19l-7-7 7-7m4 14l7-7-7-7"></path>
                             </svg>
                         </button>
                     </div>
