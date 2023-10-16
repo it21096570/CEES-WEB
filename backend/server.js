@@ -85,4 +85,4 @@ app.use('/inventory', inventoryRoutes);
 
 
 //kamishka
-//app.use('/inventory', inventoryRoutes);
+app.use('/invoice', inventoryRoutes);
