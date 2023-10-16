@@ -99,29 +99,33 @@ function SiteManagerCreateOrder() {
             }
 
             console.log('Order created:', updatedOrderData);
+            alert('Order created')
+            window.location.reload('/SiteManagerCreateOrder')
         } catch (error) {
             console.error('Error creating order:', error);
         }
     };
 
     return (
-        <div>
-            <h2>Create Order</h2>
-            <form onSubmit={handleSubmit}>
+        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 max-w-md mx-auto">
+            <h2 className="text-2xl font-semibold text-center mb-6">Create Order</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Order Name Input Field */}
                 <input
                     type="text"
                     placeholder="Order Name"
                     value={orderName}
                     onChange={(e) => setOrderName(e.target.value)}
+                    className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
                 />
 
                 {orderDetails.map((order, index) => (
-                    <div key={index}>
+                    <div key={index} className="flex space-x-4">
                         <select
                             name="itemName"
                             value={order.itemName}
                             onChange={(e) => handleInputChange(index, e)}
+                            className="w-1/2 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
                         >
                             <option value="">Select an item</option>
                             {items.map((item) => (
@@ -136,13 +140,25 @@ function SiteManagerCreateOrder() {
                             placeholder="Quantity"
                             value={order.quantity}
                             onChange={(e) => handleInputChange(index, e)}
+                            className="w-1/4 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
                         />
                     </div>
                 ))}
-                <button type="button" onClick={addInputField}>
-                    Add Item
-                </button>
-                <button type="submit">Submit Order</button>
+                <div className="flex justify-between items-center">
+                    <button
+                        type="button"
+                        onClick={addInputField}
+                        className="text-blue-500 hover:underline"
+                    >
+                        Add Item
+                    </button>
+                    <button
+                        type="submit"
+                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                    >
+                        Submit Order
+                    </button>
+                </div>
             </form>
         </div>
     );

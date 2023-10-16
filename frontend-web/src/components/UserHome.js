@@ -12,6 +12,10 @@ export default function UserHome() {
     navigate('/SiteManagerCreateOrder');
   };
 
+  const SiteManagerViewOrder = () => {
+    navigate('/SiteManagerViewOrder');
+  };
+
   const Inventory = () => {
     navigate('/CreateInventory');
   };
@@ -20,6 +24,13 @@ export default function UserHome() {
   }
 
   return (
+
+    <div>
+      <h1>User Home</h1>
+      <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
+      <button className="inventory" onClick={Inventory}>Inventory</button>
+      <button className="vieworder" onClick={SiteManagerViewOrder}>view order</button>
+      <button className="managerHome" onClick={handleManagerHome}>managee home</button>
     <div className="text-center mt-8">
       <h1 className="text-3xl font-semibold mb-4">User Home</h1>
       <button
@@ -40,6 +51,7 @@ export default function UserHome() {
       >
         Manager Home
       </button>
+
     </div>
 
 

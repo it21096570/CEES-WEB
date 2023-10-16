@@ -34,6 +34,8 @@ import InvoicePayment from './components/InvoicePayment';
 
 //Thanuja
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
+import SiteManagerViewOrder from './components/SiteManagerViewOrder';
+import SiteManagerViewOrderDetails from './components/SiteManagerViewOrderDetail';
 
 import CreateInventory from './components/CreateInventory';
 import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
@@ -117,6 +119,8 @@ function App() {
                 <Route path='/resetPassword' element={<ResetPassword />} />
                 <Route path='/supplierView' element={<SupplierView />} />
                 <Route path='/SiteManagerCreateOrder' element={<SiteManagerCreateOrder />} />
+                <Route path='/SiteManagerViewOrder' element={<SiteManagerViewOrder />} />
+                <Route path='/SiteManagerViewOrderDetails/:orderId' element={<SiteManagerViewOrderDetails />} />
 
 
 
