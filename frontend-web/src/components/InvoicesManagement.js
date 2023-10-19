@@ -75,7 +75,7 @@ export default function InvoicesManagement() {
 
 
     return (
-        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto p-4 mt-10">
+        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto p-4 mt-5">
             <div className="mb-4">
                 <h1 className="text-2xl font-semibold">Invoice Details</h1>
             </div>
