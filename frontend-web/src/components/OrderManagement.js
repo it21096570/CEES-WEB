@@ -79,7 +79,7 @@ export default function OrderManagement() {
 
 
     return (
-        <div className="h-screen flex flex-col items-center">
+        <div className="h-screen flex flex-col items-center mt-5">
             <h1 className="text-4xl font-semibold mb-4">Order Details</h1>
 
             <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white">
