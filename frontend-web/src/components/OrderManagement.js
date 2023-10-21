@@ -129,20 +129,33 @@ export default function OrderManagement() {
                 </thead>
                 <tbody>
                     {filteredData.map((item, index) => (
-                        <tr key={item._id} className={index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}>
+                        <tr
+                            key={item._id}
+                            className={
+                                index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                            }
+                            style={{
+                                background: item.approved ? "lightgreen" : "inherit"
+                            }}
+                        >
                             <td className="py-2 px-4">{item.name}</td>
                             <td className="py-2 px-4">{item.total}</td>
-                            <td className="py-2 px-4">{item.status}</td>
+                            <td className="py-2 px-4" style={{ color: item.status === "Approved" ? "green" : item.status === "Pending" ? "red" : "inherit" }}>
+                                {item.status}
+                            </td>
                             <td className="py-2 px-4">
                                 <Link to={`/orderDetailsDisplay/${item._id}`}>
-                                    <button className="text-blue-500 hover:underline">Details</button>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Details
+                                    </button>
                                 </Link>
                             </td>
                             <td className="py-2 px-4">
-                                <button className="text-blue-500 hover:underline" onClick={() => deleteOrder(item._id)}>
+                                <button className="bg-red-400 hover:bg-red-300 text-white font-bold py-2 px-4 rounded" onClick={() => deleteOrder(item._id)}>
                                     Delete
                                 </button>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>

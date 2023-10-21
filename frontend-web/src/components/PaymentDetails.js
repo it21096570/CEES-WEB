@@ -116,9 +116,12 @@ export default function PaymentDetails() {
                             <td className="py-2 px-4">{item.paymentstatus}</td>
                             <td className="py-2 px-4">
                                 <Link to={`/payment-details/${item._id}`}>
-                                    <button className="text-blue-500 hover:underline">Details</button>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Details
+                                    </button>
                                 </Link>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>

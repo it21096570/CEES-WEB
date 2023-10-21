@@ -117,9 +117,12 @@ export default function InvoicesManagement() {
                             <td className="py-2 px-4">${invoice.actualprice}</td>
                             <td className="py-2 px-4">
                                 <Link to={`/invoicePayment/${invoice._id}`}>
-                                    <button className="text-blue-500 hover:underline">Pay Now</button>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Pay Now
+                                    </button>
                                 </Link>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>
