@@ -44,9 +44,28 @@ describe('Payment API Endpoints', () => {
         expect(res.body).toHaveProperty('amount', updatedAmount);
     });
 
+    // Test updating a payment that doesn't exist
+    it('should fail to update a non-existent payment', async () => {
+        const nonExistentPaymentId = 'nonExistentId';
+        const updatedAmount = '200.00';
+        const res = await request(app)
+            .put(`/updatePayment/${nonExistentPaymentId}`)
+            .send({ amount: updatedAmount });
+        expect(res.statusCode).toBe(404);
+        // You can add more specific error response checks here.
+    });
+
     // Test deleting a payment
     it('should delete a payment', async () => {
         const res = await request(app).delete(`/deletePayment/${paymentId}`);
         expect(res.statusCode).toBe(204);
+    });
+
+    // Test deleting a payment that doesn't exist
+    it('should fail to delete a non-existent payment', async () => {
+        const nonExistentPaymentId = 'nonExistentId';
+        const res = await request(app).delete(`/deletePayment/${nonExistentPaymentId}`);
+        expect(res.statusCode).toBe(404);
+        // You can add more specific error response checks here.
     });
 });
