@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from "@react-navigation/native";
 
 function SuppliyerHome() {
     const navigation = useNavigation();
     const [orders, setOrders] = useState([]);
+    const [filteredOrders, setFilteredOrders] = useState([]);
     const [error, setError] = useState(null);
+    const [search, setSearch] = useState('');
 
     useEffect(() => {
         // Replace 'your-backend-api-endpoint' with the actual URL of your backend API.
-        axios.get('http://192.168.43.93:8080/order/getAllOrders') // Fetch orders from your backend API
+        axios.get('http://192.168.153.220:8080/order/getAllOrders') // Fetch orders from your backend API
             .then(response => {
-                setOrders(response.data);
+                const approvedOrders = response.data.filter(order => order.status === 'Approved');
+                setOrders(approvedOrders);
+                setFilteredOrders(approvedOrders);
             })
             .catch(err => {
                 setError(err);
@@ -24,6 +28,13 @@ function SuppliyerHome() {
         navigation.navigate('InvoiceCreatePage', { orderId });
     };
 
+   
+
+    const handleSearch = () => {
+        const filtered = filteredOrders.filter(order => order.name.toLowerCase().includes(search.toLowerCase()));
+        setFilteredOrders(filtered);
+    };
+
     if (error) {
         return (
             <View style={styles.container}>
@@ -31,14 +42,20 @@ function SuppliyerHome() {
             </View>
         );
     } else {
-        // Filter orders with status "approved"
-        const approvedOrders = orders.filter(order => order.status === 'Approved');
-
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Supplier View - Approved Orders</Text>
+                <View style={styles.searchContainer}>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Search by name"
+                        value={search}
+                        onChangeText={(text) => setSearch(text)}
+                    />
+                    <Button title="Search" onPress={handleSearch} />
+                </View>
                 <FlatList
-                    data={approvedOrders}
+                    data={filteredOrders}
                     keyExtractor={(order) => order._id}
                     renderItem={({ item }) => (
                         <View style={styles.orderItem}>
@@ -49,7 +66,7 @@ function SuppliyerHome() {
                                 style={styles.button}
                                 onPress={() => navigateToInvoiceCreate(item._id)}
                             >
-                                <Text style={styles.buttonText}>Confirm Invoice</Text>
+                                <Text style={styles.buttonText}>View Details</Text>
                             </TouchableOpacity>
                         </View>
                     )}
@@ -62,9 +79,8 @@ function SuppliyerHome() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#339CFF',
         padding: 20,
-        top: 100
+        top: 100,
     },
     title: {
         color: '#4933FF',
@@ -92,6 +108,15 @@ const styles = StyleSheet.create({
     },
     errorText: {
         color: 'red',
+    },
+    searchContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    searchInput: {
+        flex: 1,
+        marginRight: 10,
     },
 });
 

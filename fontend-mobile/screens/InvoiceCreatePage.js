@@ -1,90 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import axios from 'axios';
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from '@react-navigation/native';
 
-function InvoiceCreatePage() {
-    const route = useRoute();
-    const { orderId } = route.params;
-    const navigation = useNavigation();
-    const [order, setOrder] = useState({});
-    const [totalnew, setTotalNew] = useState('');
+export default function InvoiceCreatePage() {
+  const route = useRoute();
+  const navigation = useNavigation();
 
-    useEffect(() => {
-        // Fetch order details using the orderId
-        axios.get(`http://192.168.43.93:8080/order/getOneOrder/${orderId}`)
-            .then(response => {
-                setOrder(response.data);
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    }, [orderId]);
+  const [search, setSearch] = useState('');
+  const [orderDetails, setOrderDetails] = useState({});
+  const [orderItemDetails, setOrderItemDetails] = useState([]);
+  const [filteredOrderItemDetails, setFilteredOrderItemDetails] = useState([]);
 
-    const createInvoice = () => {
-        if (!totalnew) {
-            // Handle validation or display an error message if the field is empty
-            return;
-        }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const orderResponse = await axios.get(`http://192.168.153.220:8080/order/getOneOrder/${route.params.orderId}`);
+        setOrderDetails(orderResponse.data);
 
-        axios.post('http://192.168.43.93:8080/invoice/createInvoice', {
-            ordername: order.name, // Use the order name from the fetched order
-            ordertotal: order.total,
-            orderstatus: order.status,
-            actualprice: totalnew,
-        })
-            .then(response => {
-                // Handle success, e.g., navigate back to the previous screen
-                navigation.goBack();
-            })
-            .catch(err => {
-                // Handle error, e.g., show an error message to the user
-                console.error(err);
-            });
-    };
+        const itemResponse = await axios.get(`http://192.168.153.220:8080/orderItem/getOrderItemsByOrderID/${route.params.orderId}`);
+        setOrderItemDetails(itemResponse.data);
+        setFilteredOrderItemDetails(itemResponse.data);
+      } catch (error) {
+        console.error('Error fetching data: ' + error);
+      }
+    }
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Invoice Create</Text>
-            <Text style={styles.label}>Order ID: {order._id}</Text>
-            <Text style={styles.label}>Order Name: {order.name}</Text>
-            <Text style={styles.label}>Total: ${order.total}</Text>
-            <Text style={styles.label}>Status: {order.status}</Text>
-            <Text style={styles.label}>New Cost:</Text>
-            <TextInput
-                style={styles.input}
-                value={totalnew.toString()} // Ensure that the value is a string
-                onChangeText={(text) => setTotalNew(text)}
-            />
-            <Button
-                title="Submit Invoice"
-                onPress={createInvoice}
-                color="#4933FF"
-            />
-        </View>
+    fetchData();
+  }, [route.params.orderId]);
+
+  useEffect(() => {
+    const filteredItems = orderItemDetails.filter(item =>
+      item.item.name.toLowerCase().includes(search.toLowerCase())
     );
+    setFilteredOrderItemDetails(filteredItems);
+  }, [search, orderItemDetails]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.orderDetailsContainer}>
+        <Text style={styles.orderHeader}>Order Details</Text>
+        <Text style={styles.orderInfo}>Order Name: {orderDetails.name}</Text>
+        <Text style={styles.orderInfo}>Total Cost: ${orderDetails.total}</Text>
+        <Text style={styles.orderInfo}>Status: {orderDetails.status}</Text>
+      </View>
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search for items"
+          value={search}
+          onChangeText={text => setSearch(text)}
+        />
+        <TouchableOpacity style={styles.invoiceButton} onPress={() => navigation.navigate('InvoiceForm', { orderId: route.params.orderId })}>
+          <Text style={styles.buttonText}>Invoice</Text>
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={filteredOrderItemDetails}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          <View style={[styles.itemContainer, { backgroundColor: index % 2 === 0 ? '#F0F0F0' : 'white' }]}>
+            <Text style={styles.itemName}>{item.item.name}</Text>
+            <Text style={styles.itemInfo}>Quantity: {item.qty}</Text>
+            <Text style={styles.itemInfo}>Unit Price(RS): {item.item.avgunitprice}</Text>
+            <Text style={styles.itemInfo}>Item Total(RS): {item.itemtotal}</Text>
+          </View>
+        )}
+      />
+      <Text style={styles.totalCost}>Total Cost: ${orderDetails.total}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
-    title: {
-        fontSize: 24,
-        textAlign: 'center',
-    },
-    label: {
-        fontSize: 16,
-        marginTop: 10,
-    },
-    input: {
-        height: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginTop: 10,
-        padding: 10,
-    },
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+  orderDetailsContainer: {
+    marginBottom: 16,
+  },
+  orderHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  orderInfo: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 8,
+  },
+  invoiceButton: {
+    backgroundColor: '#007BFF',
+    borderRadius: 8,
+    padding: 8,
+    marginLeft: 8,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  itemContainer: {
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  itemName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  itemInfo: {
+    fontSize: 16,
+    marginBottom: 4,
+  },
+  totalCost: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'right',
+  },
 });
-
-export default InvoiceCreatePage;

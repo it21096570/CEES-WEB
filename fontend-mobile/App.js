@@ -20,6 +20,7 @@ import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import GoogleSignInScreen from "./components/GoogleSignInScreen";
 import GoogleSignInWebView from "./components/GoogleSignInWebView";
 import InvoiceCreatePage from "./screens/InvoiceCreatePage";
+import InvoiceForm from "./screens/InvoiceForm";
 
 
 const App = () => {
@@ -125,6 +126,12 @@ const App = () => {
           <Stack.Screen
             name="InvoiceCreatePage"
             component={InvoiceCreatePage}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="InvoiceForm"
+            component={InvoiceForm}
             options={{ headerShown: false }}
           />
 
