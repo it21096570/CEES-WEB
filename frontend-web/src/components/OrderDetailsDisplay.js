@@ -84,10 +84,10 @@ export default function OrderDetailsDisplay() {
         const title = "Order Table Details";
         const headers = ["Item Name", "Quantity", "Unit Price", "Item Total"];
         const data = filteredItems.map((rep) => [
-            rep.itemName,
+            rep.item.name,
             rep.qty,
-            rep.unitPrice,
-            rep.itemTotal,
+            rep.item.avgunitprice,
+            rep.itemtotal,
         ]);
 
         let content = {
