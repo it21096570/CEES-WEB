@@ -1,32 +1,77 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export default function InvoiceForm({ orderDetails, onSubmit }) {
+export default function InvoiceForm() {
+  const { orderId } = useParams();
+  const [orderDetails, setOrderDetails] = useState({});
   const [newTotal, setNewTotal] = useState('');
 
   useEffect(() => {
-    // Display an alert to show order details when the component is mounted
-    alert(`Order Name: ${orderDetails.name}\nTotal Cost: $${orderDetails.total}`);
-  }, [orderDetails]);
+    async function fetchOrderDetails() {
+      try {
+        const orderResponse = await axios.get(`http://localhost:8080/order/getOneOrder/${orderId}`);
+        setOrderDetails(orderResponse.data);
+      } catch (error) {
+        console.error("Error fetching order details: " + error);
+      }
+    }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(newTotal);
+    fetchOrderDetails();
+  }, [orderId]);
+
+  const handleSubmit = () => {
+    // Send a request to create a new invoice directly with values
+    axios
+      .post(`http://localhost:8080/invoice/createInvoice`, {
+        ordername: orderDetails.name,
+        ordertotal: newTotal,
+        orderstatus: orderDetails.status,
+        actualprice: orderDetails.total,
+      })
+      .then(() => {
+        alert('New invoice created successfully');
+        // You can handle success here, e.g., navigate back to the previous page
+      })
+      .catch((error) => {
+        console.error('Error creating invoice: ' + error);
+        alert('Error creating invoice: ' + error.message);
+      });
   };
 
   return (
-    <div>
-      <h1>Invoice Form</h1>
-      <p>Order Name: {orderDetails.name}</p>
-      <p>Total Cost: ${orderDetails.total}</p>
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <h1 className="text-3xl font-semibold mb-4">Create Invoice</h1>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Order Name:</label>
+        <p className="text-gray-800">{orderDetails.name}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Total Cost:</label>
+        <p className="text-gray-800">${orderDetails.total}</p>
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-semibold mb-2">Status:</label>
+        <p className="text-gray-800">{orderDetails.status}</p>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label>New Total: </label>
-        <input
-          type="number"
-          value={newTotal}
-          onChange={(e) => setNewTotal(e.target.value)}
-        />
-        <button type="submit">Submit</button>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-semibold mb-2">New Total:</label>
+          <input
+            type="number"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none"
+            value={newTotal}
+            onChange={(e) => setNewTotal(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 focus:outline-none"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
 }
+

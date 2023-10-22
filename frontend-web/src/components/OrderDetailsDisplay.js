@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 export default function OrderDetailsDisplay() {
+
     const { orderId } = useParams();
     const [search, setSearch] = useState('');
     const [orderDetails, setOrderDetails] = useState({});
@@ -19,8 +20,8 @@ export default function OrderDetailsDisplay() {
                 const itemResponse = await axios.get(`http://localhost:8080/orderItem/getOrderItemsByOrderID/${orderId}`);
                 setOrderItemDetails(itemResponse.data);
 
-                alert(orderItemDetails.length)
-                console.log(orderItemDetails);
+                //alert(orderItemDetails.length)
+                //console.log(orderItemDetails);
 
             } catch (error) {
                 console.error("Error fetching data: " + error);
@@ -109,7 +110,7 @@ export default function OrderDetailsDisplay() {
     }
 
     return (
-        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto">
+        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto mt-5">
             <div className="w-52 md:w-2/3 lg:w-1/3 shadow-lg bg-white mx-auto p-2 float-left mt-5">
                 <h1 className="text-lg font-semibold">Order Details</h1>
                 <p className="text-sm">

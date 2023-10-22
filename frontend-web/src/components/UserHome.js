@@ -21,6 +21,9 @@ export default function UserHome() {
   const handleManagerHome = () => {
     navigate('/managerHome');
   }
+  const supplierView = () => {
+    navigate('/supplierView')
+  }
 
   return (
     <div>
@@ -48,3 +51,4 @@ export default function UserHome() {
     </div>
   );
 }
+

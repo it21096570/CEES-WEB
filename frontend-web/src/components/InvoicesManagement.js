@@ -75,7 +75,7 @@ export default function InvoicesManagement() {
 
 
     return (
-        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto p-4 mt-10">
+        <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto p-4 mt-5">
             <div className="mb-4">
                 <h1 className="text-2xl font-semibold">Invoice Details</h1>
             </div>
@@ -117,9 +117,12 @@ export default function InvoicesManagement() {
                             <td className="py-2 px-4">${invoice.actualprice}</td>
                             <td className="py-2 px-4">
                                 <Link to={`/invoicePayment/${invoice._id}`}>
-                                    <button className="text-blue-500 hover:underline">Pay Now</button>
+                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Pay Now
+                                    </button>
                                 </Link>
                             </td>
+
                         </tr>
                     ))}
                 </tbody>

@@ -60,19 +60,19 @@ export default function NavBarUser() {
                     <div className="md:flex md:items-center space-x-4">
                         <ul className="flex space-x-4 text-white">
                             <li className="nav-item">
-                                <a className="nav-link" href="/dashboard">
+                                <a className="nav-link" href="/userHome">
                                     <FontAwesomeIcon /> Dashboard
                                 </a>
                             </li>
 
                             <li className="nav-item">
                                 <a className="nav-link" href="/managerHome">
-                                    <FontAwesomeIcon /> Orders
+                                    <FontAwesomeIcon /> Manager
                                 </a>
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link" href="/suppliers">
+                                <a className="nav-link" href="/supplierView">
                                     <FontAwesomeIcon /> Suppliers
                                 </a>
                             </li>
