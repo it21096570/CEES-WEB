@@ -1,9 +1,10 @@
-import React from 'react';
+//import React from 'react';
+const React = require('react');
+const axios = require('axios');
 import { render, screen, fireEvent } from '@testing-library/react';
-import OrderDetailsDisplay from './OrderDetailsDisplay';
-import axios from 'axios';
+import OrderDetailsDisplay from '../components/OrderDetailsDisplay';
+//import axios from 'axios';
 
-// Mocking axios for API calls
 jest.mock('axios');
 
 describe('OrderDetailsDisplay Component', () => {
@@ -56,7 +57,7 @@ describe('OrderDetailsDisplay Component', () => {
 
         // Wait for the order items to be rendered
         const item1 = await screen.findByText('Item 1');
-        const item2 = await screen.queryByText('Item 2');
+        const item2 = screen.queryByText('Item 2');
 
         expect(item1).toBeInTheDocument();
         expect(item2).toBeNull();
@@ -66,7 +67,7 @@ describe('OrderDetailsDisplay Component', () => {
         fireEvent.change(searchInput, { target: { value: 'Item 1' } });
 
         // Ensure only matching items are displayed
-        const filteredItem1 = screen.getByText('Item 1');
+        const filteredItem1 = await screen.findByText('Item 1');
         const filteredItem2 = screen.queryByText('Item 2');
 
         expect(filteredItem1).toBeInTheDocument();

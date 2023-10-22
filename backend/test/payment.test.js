@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../app'); // Replace with the path to your Express app
+const app = require('../server'); // Replace with the path to your Express app
 
 describe('Payment API Endpoints', () => {
     let paymentId; // Store the ID of the created payment for subsequent tests

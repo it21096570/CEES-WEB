@@ -1,11 +1,13 @@
-import React from 'react';
+//import React from 'react';
+const React = require('react');
+const axios = require('axios');
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import axios from 'axios'; // You can use a mock library to simulate Axios requests.
-import { MemoryRouter } from 'react-router-dom'; // Mock the router context
-import Login from './Login'; // Import the Login component
-import Register from './Register'; // Import the Register component
+import { MemoryRouter } from 'react-router-dom';
+//import axios from 'axios'; // Import axios
 
-// Mock Axios for login and registration requests
+import Login from '../components/Login';
+import Register from '../components/Register';
+
 jest.mock('axios');
 
 describe('Login and Register Components', () => {
@@ -19,7 +21,6 @@ describe('Login and Register Components', () => {
         });
 
         it('should render the login form', () => {
-            // Test rendering the login form
             const emailInput = screen.getByPlaceholderText('Enter your email');
             const passwordInput = screen.getByPlaceholderText('Enter your password');
             const loginButton = screen.getByText('Login');
@@ -30,7 +31,6 @@ describe('Login and Register Components', () => {
         });
 
         it('should handle user login', async () => {
-            // Mock Axios response for successful login
             axios.post.mockResolvedValue({ data: { token: 'your-token', role: 'user' } });
 
             const emailInput = screen.getByPlaceholderText('Enter your email');
@@ -43,12 +43,11 @@ describe('Login and Register Components', () => {
             fireEvent.click(loginButton);
 
             await waitFor(() => {
-                expect(screen.getByText('Login successuser')).toBeInTheDocument();
+                expect(screen.getByText('Login success')).toBeInTheDocument();
             });
         });
 
         it('should handle failed user login', async () => {
-            // Mock Axios response for failed login
             axios.post.mockRejectedValue({ message: 'Login failed' });
 
             const emailInput = screen.getByPlaceholderText('Enter your email');
@@ -61,7 +60,7 @@ describe('Login and Register Components', () => {
             fireEvent.click(loginButton);
 
             await waitFor(() => {
-                expect(screen.getByText('Login Unsuccess')).toBeInTheDocument();
+                expect(screen.getByText('Login Unsuccessful')).toBeInTheDocument();
             });
         });
     });
@@ -76,7 +75,6 @@ describe('Login and Register Components', () => {
         });
 
         it('should render the registration form', () => {
-            // Test rendering the registration form
             const firstNameInput = screen.getByPlaceholderText('First Name');
             const lastNameInput = screen.getByPlaceholderText('Last Name');
             const emailInput = screen.getByPlaceholderText('Email');
@@ -95,7 +93,6 @@ describe('Login and Register Components', () => {
         });
 
         it('should handle user registration', async () => {
-            // Mock Axios response for successful registration
             axios.post.mockResolvedValue({ data: {} });
 
             const firstNameInput = screen.getByPlaceholderText('First Name');
@@ -121,7 +118,6 @@ describe('Login and Register Components', () => {
         });
 
         it('should handle failed user registration', async () => {
-            // Mock Axios response for failed registration
             axios.post.mockRejectedValue({ message: 'Registration failed' });
 
             const firstNameInput = screen.getByPlaceholderText('First Name');

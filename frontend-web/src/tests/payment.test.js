@@ -1,9 +1,10 @@
-// InvoicePayment.test.js
+//import React from 'react';
+const React = require('react');
+const axios = require('axios');
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import InvoicePayment from '../components/InvoicePayment';
 
-import React from 'react';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
-import InvoicePayment from './InvoicePayment';
-import axios from 'axios';
+//const axios = require('axios');
 
 jest.mock('axios');
 
@@ -23,16 +24,13 @@ describe('InvoicePayment Component', () => {
         // Proceed to the next step
         fireEvent.click(getByText('Next'));
 
-
         // Proceed to the card details step
         fireEvent.click(getByText('Next'));
-
-
 
         // Proceed to the payment confirmation step
         fireEvent.click(getByText('Next'));
 
-        // In a real application, add assertions for payment confirmation step
+        // In a real application, add assertions for the payment confirmation step
         // ...
 
         // Check if the "Submit" button is displayed on the last step
