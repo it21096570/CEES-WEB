@@ -32,7 +32,7 @@ const invoiceRoutes = require('./routes/invoice.routes');
 require("dotenv").config();
 
 //initialize port number
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8090;
 
 //use dependancies
 app.use(cors());
