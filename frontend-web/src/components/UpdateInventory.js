@@ -5,10 +5,14 @@ import axios from "axios";
 export default function UpdateInventory() {
   const navigate = useNavigate();
   const { inventoryId } = useParams();
-  
+
   const [inventory, setInventory] = useState({});
-  const [updatedInventory, setUpdatedInventory] = useState({ name: '', quantity: '', avgunitprice: '' });
-  
+  const [updatedInventory, setUpdatedInventory] = useState({
+    name: "",
+    quantity: "",
+    avgunitprice: "",
+  });
+
   useEffect(() => {
     // Fetch the selected inventory's details
     axios
@@ -39,7 +43,10 @@ export default function UpdateInventory() {
   const handleSubmit = () => {
     // Send a PUT request to update the inventory
     axios
-      .put(`http://localhost:8080/inventory/updateInventory/${inventoryId}`, updatedInventory)
+      .put(
+        `http://localhost:8080/inventory/updateInventory/${inventoryId}`,
+        updatedInventory
+      )
       .then(() => {
         // Redirect to the inventory details page or perform any other action
         alert("Updated Successfully");
@@ -53,10 +60,15 @@ export default function UpdateInventory() {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-3xl font-semibold text-themeBlue mb-4">Update Inventory</h2>
+        <h2 className="text-3xl font-semibold text-themeBlue mb-4">
+          Update Inventory
+        </h2>
         <form className="update-form">
           <div className="mb-4">
-            <label htmlFor="title" className="block text-themeBlue text-lg font-semibold mb-2">
+            <label
+              htmlFor="title"
+              className="block text-themeBlue text-lg font-semibold mb-2"
+            >
               Product Name:
             </label>
             <input
@@ -68,7 +80,10 @@ export default function UpdateInventory() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="content" className="block text-themeBlue text-lg font-semibold mb-2">
+            <label
+              htmlFor="content"
+              className="block text-themeBlue text-lg font-semibold mb-2"
+            >
               Quantity:
             </label>
             <input
@@ -80,7 +95,10 @@ export default function UpdateInventory() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="title" className="block text-themeBlue text-lg font-semibold mb-2">
+            <label
+              htmlFor="title"
+              className="block text-themeBlue text-lg font-semibold mb-2"
+            >
               Average Unit Price:
             </label>
             <input
@@ -95,7 +113,15 @@ export default function UpdateInventory() {
             <button
               type="button"
               onClick={handleSubmit}
-              className="btn update-button bg-themePurple hover-bg-themeBlue text-white py-2 px-4 rounded-md transition duration-300"
+              style={{
+                backgroundColor: "#4B0082", // Purple background color
+                color: "white", // White text color
+                padding: "12px 24px", // Padding
+                borderRadius: "8px", // Rounded corners
+                fontSize: "16px", // Font size
+                cursor: "pointer", // Cursor style
+                transition: "background-color 0.3s", // Smooth transition on hover
+              }}
             >
               Update
             </button>
