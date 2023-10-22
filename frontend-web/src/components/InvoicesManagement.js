@@ -49,7 +49,7 @@ export default function InvoicesManagement() {
         const doc = new jsPDF(orientation, unit, size);
 
         const title = "All Invoice Table Details";
-        const headers = ["Order Id", "Order Name", "Total Cost", "Status"];
+        const headers = ["Order Name", "Order Total", "Actual Price"];
         const data = filteredInvoices.map((rep) => [
 
             rep.ordername,
