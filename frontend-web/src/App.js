@@ -99,9 +99,9 @@ function App() {
 
 
 
-                
 
-                
+
+
 
 
               </Routes>
@@ -127,7 +127,7 @@ function App() {
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
                 <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
-                
+
 
                 <Route path='/managerHome' element={<ManagerHome />} />
                 <Route path='/orderManagement' element={<OrderManagement />} />
