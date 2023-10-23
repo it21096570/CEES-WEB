@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../server');
 
-describe('Payment API Endpoints', () => {
+describe('http://localhost:8080/payment', () => {
     let paymentId; // Store the ID of the created payment for subsequent tests
 
     // Test creating a payment
@@ -65,6 +65,7 @@ describe('Payment API Endpoints', () => {
     it('should fail to delete a non-existent payment', async () => {
         const nonExistentPaymentId = 'nonExistentId';
         const res = await request(app).delete(`/deletePayment/${nonExistentPaymentId}`);
+        console.log(res)
         expect(res.statusCode).toBe(404);
         // You can add more specific error response checks here.
     });

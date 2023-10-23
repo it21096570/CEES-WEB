@@ -87,3 +87,6 @@ app.use('/inventory', inventoryRoutes);
 
 //kamishka
 app.use('/invoice', invoiceRoutes);
+
+
+module.exports = app;

@@ -37,9 +37,9 @@ export default function OrderManagement() {
 
     const filteredData = orderDetails.filter((item) => (
         (selectedStatus === 'All' || (item.status && item.status.toLowerCase() === selectedStatus)) &&
-        (item.name && item.name.toLowerCase().includes(search.toLowerCase()))
+        (item.name && item.name.toLowerCase().includes(search.toLowerCase())) &&
+        item.total >= 10000 // Filter orders with a total cost greater than or equal to 100,000
     ));
-
 
 
     function generatePdf() {
