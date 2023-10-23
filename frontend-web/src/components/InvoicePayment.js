@@ -19,7 +19,7 @@ const InvoicePayment = () => {
     const navigate = useNavigate();
     const orderid = invoiceId;
 
-    const paymentstatus = 'confirm';
+    const paymentstatus = 'Completed';
 
     // Add a new state to store the confirmed data
     const [confirmedData, setConfirmedData] = useState(null);

@@ -86,8 +86,7 @@ export default function PaymentDetails() {
                             <option value="All">All</option>
                             <option value="Pending">Pending</option>
                             <option value="Completed">Completed</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
+
                         </select>
                     </div>
                     <div className="relative w-1/4 p-5">
