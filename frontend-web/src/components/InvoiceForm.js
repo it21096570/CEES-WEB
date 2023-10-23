@@ -26,9 +26,11 @@ export default function InvoiceForm() {
     axios
       .post(`http://localhost:8080/invoice/createInvoice`, {
         ordername: orderDetails.name,
+
         ordertotal: orderDetails.total,
         orderstatus: orderDetails.status,
         actualprice: newTotal,
+
       })
       .then(() => {
         alert('New invoice created successfully');
@@ -72,6 +74,7 @@ export default function InvoiceForm() {
           Submit
         </button>
 
+
         <Link to="/invoiceManagement">
         <button className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 focus:outline-none">
           View Invoices
@@ -81,3 +84,4 @@ export default function InvoiceForm() {
     </div>
   );
 }
+
