@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../app'); // Replace with the path to your Express app
 
-describe('Inventory API Endpoints', () => {
+describe('http://localhost:8080/inventory', () => {
     let inventoryId; // Store the ID of the created inventory item for subsequent tests
 
     // Test creating a inventory
