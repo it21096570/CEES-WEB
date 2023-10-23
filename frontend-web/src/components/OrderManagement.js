@@ -36,7 +36,7 @@ export default function OrderManagement() {
     };
 
     const filteredData = orderDetails.filter((item) => (
-        (selectedStatus === 'All' || (item.status && item.status.toLowerCase() === selectedStatus)) &&
+        (selectedStatus === 'All' || (item.status && item.status === selectedStatus)) &&
         (item.name && item.name.toLowerCase().includes(search.toLowerCase())) &&
         item.total >= 10000 // Filter orders with a total cost greater than or equal to 100,000
     ));
@@ -105,9 +105,8 @@ export default function OrderManagement() {
                         >
                             <option value="All">All</option>
                             <option value="Pending">Pending</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Shipped">Shipped</option>
-                            <option value="Delivered">Delivered</option>
+                            <option value="Approved">Approved</option>
+
                         </select>
                     </div>
                     <div className="relative w-1/4 p-5">
