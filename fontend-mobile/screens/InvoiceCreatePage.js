@@ -15,10 +15,10 @@ export default function InvoiceCreatePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const orderResponse = await axios.get(`http://192.168.153.220:8080/order/getOneOrder/${route.params.orderId}`);
+        const orderResponse = await axios.get(`http://192.168.47.17:8080/order/getOneOrder/${route.params.orderId}`);
         setOrderDetails(orderResponse.data);
 
-        const itemResponse = await axios.get(`http://192.168.153.220:8080/orderItem/getOrderItemsByOrderID/${route.params.orderId}`);
+        const itemResponse = await axios.get(`http://192.168.47.17:8080/orderItem/getOrderItemsByOrderID/${route.params.orderId}`);
         setOrderItemDetails(itemResponse.data);
         setFilteredOrderItemDetails(itemResponse.data);
       } catch (error) {
@@ -75,13 +75,20 @@ export default function InvoiceCreatePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 2,
     backgroundColor: '#fff',
+    paddingTop:40,
   },
   orderDetailsContainer: {
+    paddingLeft: 130,
     marginBottom: 16,
+    paddingBottom:20,
+    backgroundColor: '#3EC3C3',
+    //paddingTop:10,
+
   },
   orderHeader: {
+    paddingTop: 40,
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 8,
@@ -94,6 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
+    paddingBottom: 20,
   },
   input: {
     flex: 1,
@@ -108,6 +116,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginLeft: 8,
     alignItems: 'center',
+   
   },
   buttonText: {
     color: '#fff',
