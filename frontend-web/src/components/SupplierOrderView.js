@@ -113,7 +113,7 @@ export default function SupplierOrderView() {
                         </button>
 
                         <div className="w-full md:w-3/4 lg:w-4/5 xl:w-5/6 shadow-lg bg-white mx-auto">
-      {/* ... Your existing code */}
+      
       <button
         className="flex items-center bg-purple-500 text-white px-4 py-2 rounded-md hover-bg-purple-600"
         onClick={redirectToInvoiceForm}

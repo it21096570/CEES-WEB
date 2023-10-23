@@ -11,6 +11,10 @@ export default function UserHome() {
     navigate(route);
   };
 
+  const supplierView = () => {
+    navigate('/supplierView')
+  }
+
   return (
     <div className="user-home">
       {/* Slider Section */}
@@ -38,6 +42,50 @@ export default function UserHome() {
         </div>
       </div>
 
+
+    <div>
+      <h1>User Home</h1>
+
+      <button className="SiteManger" onClick={SiteManagerCreateOrder}> order </button>
+      <button className="inventory" onClick={Inventory}>Inventory</button>
+      <button className="vieworder" onClick={SiteManagerViewOrder}>view order</button>
+      <button className="managerHome" onClick={handleManagerHome}>managee home</button>
+      <button className="managerHome" onClick={handleManagerHome}>managee home</button>
+      <button className="supplierView" onClick={supplierView}>Supplier home</button>
+
+    <div className="text-center mt-8">
+      <h1 className="text-3xl font-semibold mb-4">User Home</h1>
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+        onClick={SiteManagerCreateOrder}
+      >
+        Create Order
+      </button>
+      <button
+        className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-md mr-2"
+        onClick={Inventory}
+      >
+        Inventory
+      </button>
+      <button
+        className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-md"
+        onClick={handleManagerHome}
+      >
+        Manager Home
+      </button>
+
+      <button
+        className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-md"
+        onClick={supplierView}
+      >
+        Supplier Home
+      </button>
+
+    </div>
+
+</div>
+
+=======
       {/* Action Section */}
       <h2 className="text-3xl mt-8 mb-5 text-center font-bold">Manage Your Operations</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -59,6 +107,7 @@ export default function UserHome() {
         </div>
       </div>
     </div>
+
   );
 }
 

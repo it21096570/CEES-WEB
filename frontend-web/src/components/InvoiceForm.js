@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function InvoiceForm() {
   const { orderId } = useParams();
@@ -25,9 +26,11 @@ export default function InvoiceForm() {
     axios
       .post(`http://localhost:8080/invoice/createInvoice`, {
         ordername: orderDetails.name,
-        ordertotal: newTotal,
+
+        ordertotal: orderDetails.total,
         orderstatus: orderDetails.status,
-        actualprice: orderDetails.total,
+        actualprice: newTotal,
+
       })
       .then(() => {
         alert('New invoice created successfully');
@@ -70,6 +73,13 @@ export default function InvoiceForm() {
         >
           Submit
         </button>
+
+
+        <Link to="/invoiceManagement">
+        <button className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 focus:outline-none">
+          View Invoices
+        </button>
+      </Link>
       </form>
     </div>
   );
