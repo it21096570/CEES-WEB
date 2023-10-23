@@ -45,7 +45,7 @@ export default function UserHome() {
           <FontAwesomeIcon icon={faDatabase} className="text-4xl text-blue-500" />
           <span className="text-lg font-semibold">Create Order</span>
         </div>
-        <div className="action-card p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100" onClick={() => goTo('/CreateInventory')}>
+        <div className="action-card p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100" onClick={() => goTo('/InventoryDetailsDisplay')}>
           <FontAwesomeIcon icon={faDatabase} className="text-4xl text-blue-500" />
           <span className="text-lg font-semibold">Manage Inventory</span>
         </div>
