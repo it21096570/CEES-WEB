@@ -12,7 +12,7 @@ function SuppliyerHome() {
 
     useEffect(() => {
         // Replace 'your-backend-api-endpoint' with the actual URL of your backend API.
-        axios.get('http://192.168.153.220:8080/order/getAllOrders') // Fetch orders from your backend API
+        axios.get('http://192.168.47.17:8080/order/getAllOrders') // Fetch orders from your backend API
             .then(response => {
                 const approvedOrders = response.data.filter(order => order.status === 'Approved');
                 setOrders(approvedOrders);
@@ -80,7 +80,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        top: 100,
+        paddingTop:10,
+    
+        top: 70,
     },
     title: {
         color: '#4933FF',
@@ -110,6 +112,9 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     searchContainer: {
+        paddingTop:20,
+        paddingBottom:40,
+        borderColor: '#4933FF',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',

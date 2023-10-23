@@ -12,7 +12,7 @@ function InvoiceCreatePage() {
 
     useEffect(() => {
         // Fetch order details using the orderId
-        axios.get(`http://192.168.153.220:8080/order/getOneOrder/${orderId}`)
+        axios.get(`http://192.168.47.17:8080/order/getOneOrder/${orderId}`)
             .then(response => {
                 setOrder(response.data);
             })
@@ -27,7 +27,7 @@ function InvoiceCreatePage() {
             return;
         }
 
-        axios.post('http://192.168.153.220:8080/invoice/createInvoice', {
+        axios.post('http://192.168.47.17:8080/invoice/createInvoice', {
             ordername: order.name, // Use the order name from the fetched order
             ordertotal: order.total,
             orderstatus: order.status,
@@ -56,10 +56,13 @@ function InvoiceCreatePage() {
                 value={totalnew.toString()} // Ensure that the value is a string
                 onChangeText={(text) => setTotalNew(text)}
             />
+           
             <Button
                 title="Submit Invoice"
                 onPress={createInvoice}
                 color="#4933FF"
+                style={styles.button}
+
             /> 
         </View>
     );
@@ -69,21 +72,32 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        
     },
     title: {
         fontSize: 24,
         textAlign: 'center',
+        paddingTop: 50,
+        paddingBottom: 20,
+        fontStyle:'italic'
     },
     label: {
         fontSize: 16,
         marginTop: 10,
     },
+
+    button: {
+        position: 'absolute',
+        bottom: 16,
+
+      },
+
     input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
         marginTop: 10,
-        padding: 10,
+        paddingBottom: 10,
     },
 });
 
