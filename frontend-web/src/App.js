@@ -36,6 +36,7 @@ import InvoicePayment from './components/InvoicePayment';
 import SiteManagerCreateOrder from './components/SiteManagerCreateOrder';
 import SiteManagerViewOrder from './components/SiteManagerViewOrder';
 import SiteManagerViewOrderDetails from './components/SiteManagerViewOrderDetail';
+import SitaManagerHome from './components/SiteManagerHome';
 
 import CreateInventory from './components/CreateInventory';
 import InventoryDetailsDisplay from './components/InventoryDetailsDisplay';
@@ -127,6 +128,7 @@ function App() {
                 <Route path='/CreateInventory' element={<CreateInventory />} />
                 <Route path='/InventoryDetailsDisplay' element={<InventoryDetailsDisplay />} />
                 <Route path='/UpdateInventory/:inventoryId' element={<UpdateInventory />} />
+                <Route path='/SitaManagerHome' element={<SitaManagerHome />} />
                 
 
                 <Route path='/managerHome' element={<ManagerHome />} />

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 function SiteManagerCreateOrder() {
+    const navigate = useNavigate();
+
 
     const [orderName, setOrderName] = useState(''); // State for order name
     const [orderDetails, setOrderDetails] = useState([
@@ -30,6 +33,10 @@ function SiteManagerCreateOrder() {
         updatedDetails[index][name] = value;
         setOrderDetails(updatedDetails);
     };
+
+    const viewOrder = () => {
+        navigate('/SiteManagerViewOrder')
+      }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -107,60 +114,65 @@ function SiteManagerCreateOrder() {
     };
 
     return (
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 max-w-md mx-auto">
-            <h2 className="text-2xl font-semibold text-center mb-6">Create Order</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Order Name Input Field */}
-                <input
-                    type="text"
-                    placeholder="Order Name"
-                    value={orderName}
-                    onChange={(e) => setOrderName(e.target.value)}
-                    className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-                />
+        <div>
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-8 max-w-md mx-auto">
+                <h2 className="text-2xl font-semibold text-center mb-6">Create Order</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Order Name Input Field */}
+                    <input
+                        type="text"
+                        placeholder="Order Name"
+                        value={orderName}
+                        onChange={(e) => setOrderName(e.target.value)}
+                        className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
+                    />
 
-                {orderDetails.map((order, index) => (
-                    <div key={index} className="flex space-x-4">
-                        <select
-                            name="itemName"
-                            value={order.itemName}
-                            onChange={(e) => handleInputChange(index, e)}
-                            className="w-1/2 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
+                    {orderDetails.map((order, index) => (
+                        <div key={index} className="flex space-x-4">
+                            <select
+                                name="itemName"
+                                value={order.itemName}
+                                onChange={(e) => handleInputChange(index, e)}
+                                className="w-1/2 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
+                            >
+                                <option value="">Select an item</option>
+                                {items.map((item) => (
+                                    <option key={item._id} value={item.name}>
+                                        {item.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <input
+                                type="number"
+                                name="quantity"
+                                placeholder="Quantity"
+                                value={order.quantity}
+                                onChange={(e) => handleInputChange(index, e)}
+                                className="w-1/4 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
+                            />
+                        </div>
+                    ))}
+                    <div className="flex justify-between items-center">
+                        <button
+                            type="button"
+                            onClick={addInputField}
+                            className="text-blue-500 hover:underline"
                         >
-                            <option value="">Select an item</option>
-                            {items.map((item) => (
-                                <option key={item._id} value={item.name}>
-                                    {item.name}
-                                </option>
-                            ))}
-                        </select>
-                        <input
-                            type="number"
-                            name="quantity"
-                            placeholder="Quantity"
-                            value={order.quantity}
-                            onChange={(e) => handleInputChange(index, e)}
-                            className="w-1/4 border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-blue-500"
-                        />
+                            Add Item
+                        </button>
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                        >
+                            Submit Order
+                        </button>
                     </div>
-                ))}
-                <div className="flex justify-between items-center">
-                    <button
-                        type="button"
-                        onClick={addInputField}
-                        className="text-blue-500 hover:underline"
-                    >
-                        Add Item
-                    </button>
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                    >
-                        Submit Order
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
+
+            <button onClick={viewOrder}>View Order</button>
         </div>
+
     );
 }
 

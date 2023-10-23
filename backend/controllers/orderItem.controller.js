@@ -23,7 +23,7 @@ const getOrderItems = async (req, res) => {
 
 const getOrderItemsById = async (req, res) => {
     try {
-        const orderItems = await orderItemsService.getOrderItemsById(req.params.id);
+        const orderItems = await orderItemsService.getOrderItemsByOrderID(req.params.id);
         res.status(200).json(orderItems);
     } catch (error) {
         console.error('Error fetching orderItems:', error);
@@ -31,7 +31,9 @@ const getOrderItemsById = async (req, res) => {
     }
 };
 
-/* const updateOrderItems = async (req, res) => {
+
+
+const updateOrderItems = async (req, res) => {
     try {
         const updatedOrderItems = await orderItemsService.updateOrderItems(req.params.id, req.body);
         res.status(200).json(updatedOrderItems);
@@ -39,18 +41,8 @@ const getOrderItemsById = async (req, res) => {
         console.error('Error updating orderItems:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
-}; */
-
-const updateOrderItems = async (req, res) => {
-    try {
-        const { order, item } = req.params;
-        const updatedOrderItems = await orderItemsService.updateOrderItems(order, item, req.body);
-        res.status(200).json(updatedOrderItems);
-    } catch (error) {
-        console.error('Error updating orderItems:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
 };
+
 
 
 const deleteOrderItems = async (req, res) => {

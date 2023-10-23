@@ -35,35 +35,21 @@ const getOrderItemsById = async (id) => {
     }
 };
 
-/* const updateOrderItems = async (id, data) => {
+
+const updateOrderItems = async (id, data) => {
+    console.log("Item ID new :", id);
     try {
-        const updatedOrderItems = await OrderItems.findByIdAndUpdate(id, data, { new: true });
-        if (!updatedOrderItems) {
+        const updatedOrderItem = await OrderItems.findByIdAndUpdate(id, data, { new: true });
+
+        if (!updatedOrderItem) {
             throw new Error('OrderItems not found');
         }
-        return updatedOrderItems;
-    } catch (error) {
-        console.error('Error updating orderItems:', error);
-        throw new Error('OrderItems update failed');
-    }
-}; */
-
-const updateOrderItems = async (order, item, data) => {
-    try {
-        const filter = { order, item };
-        const updatedOrderItems = await OrderItems.findOneAndUpdate(filter, data, { new: true });
-
-        if (!updatedOrderItems) {
-            throw new Error('OrderItems not found');
-        }
-
-        return updatedOrderItems;
-    } catch (error) {
-        console.error('Error updating orderItems:', error);
-        throw new Error('OrderItems update failed');
+        return updatedOrderItem;
+    } catch (err) {
+        console.error('Error updating order item:', err.message);
+        throw new Error("update failed");
     }
 };
-
 
 
 
