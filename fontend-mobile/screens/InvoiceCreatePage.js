@@ -15,10 +15,10 @@ export default function InvoiceCreatePage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const orderResponse = await axios.get(`http://192.168.47.17:8080/order/getOneOrder/${route.params.orderId}`);
+        const orderResponse = await axios.get(`http://192.168.1.9:8080/order/getOneOrder/${route.params.orderId}`);
         setOrderDetails(orderResponse.data);
 
-        const itemResponse = await axios.get(`http://192.168.47.17:8080/orderItem/getOrderItemsByOrderID/${route.params.orderId}`);
+        const itemResponse = await axios.get(`http://192.168.1.9:8080/orderItem/getOrderItemsByOrderID/${route.params.orderId}`);
         setOrderItemDetails(itemResponse.data);
         setFilteredOrderItemDetails(itemResponse.data);
       } catch (error) {

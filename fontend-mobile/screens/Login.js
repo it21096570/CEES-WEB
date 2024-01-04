@@ -30,7 +30,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://192.168.43.93:8080/auth/login', {
+      const response = await axios.post('http://192.168.1.9:8080/auth/login', {
         email,
         password,
       });

@@ -22,7 +22,7 @@ const SignUp = () => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post('http://192.168.43.93:8080/auth/register', {
+      const response = await axios.post('http://192.168.1.9:8080/auth/register', {
         firstname,
         lastname,
         email,

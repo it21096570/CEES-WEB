@@ -12,7 +12,7 @@ function SuppliyerHome() {
 
     useEffect(() => {
         // Replace 'your-backend-api-endpoint' with the actual URL of your backend API.
-        axios.get('http://192.168.47.17:8080/order/getAllOrders') // Fetch orders from your backend API
+        axios.get('http://192.168.1.9:8080/order/getAllOrders') // Fetch orders from your backend API
             .then(response => {
                 const approvedOrders = response.data.filter(order => order.status === 'Approved');
                 setOrders(approvedOrders);

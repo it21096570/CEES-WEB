@@ -12,7 +12,7 @@ function InvoiceCreatePage() {
 
     useEffect(() => {
         // Fetch order details using the orderId
-        axios.get(`http://192.168.47.17:8080/order/getOneOrder/${orderId}`)
+        axios.get(`http://192.168.1.9:8080/order/getOneOrder/${orderId}`)
             .then(response => {
                 setOrder(response.data);
             })
@@ -27,7 +27,7 @@ function InvoiceCreatePage() {
             return;
         }
 
-        axios.post('http://192.168.47.17:8080/invoice/createInvoice', {
+        axios.post('http://192.168.1.9:8080/invoice/createInvoice', {
             ordername: order.name, // Use the order name from the fetched order
             ordertotal: order.total,
             orderstatus: order.status,
